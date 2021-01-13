@@ -1,0 +1,10 @@
+//////////////////
+
+GetPlaceInfo
+GetPlacesBySportCategory
+GetPlacesByTags
+GetPlacesByLocation
+
+//тестовый метод для добавления мест вручную
+AddPlace
+
