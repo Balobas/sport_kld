@@ -1,11 +1,12 @@
-package core
+package actions
 
 import (
+	"../../core"
+	"../../database"
 	"github.com/pkg/errors"
-	"../database"
 )
 
-func ActionCreate(obj Object) (string, error) {
+func ActionCreate(obj core.Object) (string, error) {
 	if err := obj.Validate(); err != nil {
 		return "", errors.WithStack(err)
 	}

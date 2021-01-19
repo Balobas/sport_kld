@@ -8,6 +8,10 @@ type Editable interface {
 	Update(obj interface{}) (Object, error)
 }
 
+type Settable interface {
+	Set()
+}
+
 type Keyable interface {
 	GenerateAndSetKey() (Object, error)
 	GetKey() string

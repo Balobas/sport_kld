@@ -5,11 +5,6 @@ type Coordinates struct {
 	Lng float64 `json:"lng"`
 }
 
-type OpeningHours struct {
-	OpenNow     bool     `json:"open_now"`
-	WeekdayText []string `json:"weekday_text"`
-}
-
 type UID string
 
 func (uid UID) String() string {
@@ -30,18 +25,11 @@ type SportCategory struct {
 	Name string `json:"name"`
 }
 
-type LocationInfo struct {
-	Address      string       `json:"adress"`
-	Coordinates  Coordinates  `json:"location"`
-	OpeningHours OpeningHours `json:"opening_hours"`
-}
-
 type Organization struct {
 	UID            UID         `json:"uid"`
 	Name           string      `json:"name"`
-	MainAddress    string      `json:"mainAddress"`
-	Abonements     []Abonement `json:"abonements"`
-	Places         []Place     `json:"places"`
+	Description    string 	   `json:"description"`
+	PlacesUIDs     []UID       `json:"placesUIDs"`
 	CategoriesUIDs []UID       `json:"categoriesUIDs"`
 	TagsUIDs       []UID       `json:"tagsUIDs"`
 }
@@ -49,16 +37,24 @@ type Organization struct {
 type Place struct {
 	UID                UID            `json:"uid"`
 	Name               string         `json:"name"`
+	BuildingName		string			`json:"buildingName"`
 	Description        string         `json:"description"`
+	Adress				string 		`json:"adress"`
+	City 				string		`json:"city"`
+	OpeningHours		string 		`json:"openingHours"`
+	PostIndex			string 		`json:"postIndex"`
+	WebSite				string		`json:"webSite"`
+	Phones				string		`json:"phones"`
+	CategoriesUIDs     []UID          `json:"categoriesUIDs"`
+	TagsUIDs           []UID          `json:"tagsUIDs"`
+	//под вопросом//
 	HolderOrganization Organization   `json:"organization"`
 	BasedOrganizations []Organization `json:"basedOrganizations"`
 	FreeVisit          bool           `json:"freeVisit"`
-	Abonements         []Abonement    `json:"abonements"`
-	Location           LocationInfo   `json:"location"`
-	CategoriesUIDs     []UID          `json:"categoriesUIDs"`
-	TagsUIDs           []UID          `json:"tagsUIDs"`
+	//
 }
 
+//пока под вопросом//
 type Abonement struct {
 	UID            UID    `json:"uid"`
 	Name           string `json:"name"`

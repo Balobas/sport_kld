@@ -6,9 +6,8 @@ func (org Organization) New() core.Object {
 	return Organization{
 		UID:            "",
 		Name:           "",
-		MainAddress:    "",
-		Abonements:     nil,
-		Places:         nil,
+		Description:    "",
+		PlacesUIDs:     nil,
 		CategoriesUIDs: nil,
 		TagsUIDs:       nil,
 	}
@@ -18,14 +17,19 @@ func (place Place) New() core.Object {
 	return Place{
 		UID:                "",
 		Name:               "",
+		BuildingName:       "",
 		Description:        "",
+		Adress:             "",
+		City:               "",
+		OpeningHours:       "",
+		PostIndex:          "",
+		WebSite:            "",
+		Phones:             "",
+		CategoriesUIDs:     nil,
+		TagsUIDs:           nil,
 		HolderOrganization: Organization{},
 		BasedOrganizations: nil,
 		FreeVisit:          false,
-		Abonements:         nil,
-		Location:           LocationInfo{},
-		CategoriesUIDs:     nil,
-		TagsUIDs:           nil,
 	}
 }
 

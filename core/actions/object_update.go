@@ -1,11 +1,13 @@
-package core
+package actions
 
 import (
-	"../database"
+	"../../core"
+	"../../data"
+	"../../database"
 	"github.com/pkg/errors"
 )
 
-func ActionUpdate(obj Object) (string, error) {
+func ActionUpdate(obj core.Object) (string, error) {
 	if !obj.IsValidUID() {
 		return "", errors.Errorf("uid '%s' is not valid", obj.GetKey())
 	}
@@ -13,7 +15,7 @@ func ActionUpdate(obj Object) (string, error) {
 		return "", errors.WithStack(err)
 	}
 	oldObj, err := obj.SetKey(obj.GetKey())
-	if err := ActionGet(obj.GetKey(), &oldObj); err != nil {
+	if err := ActionGet(data.UID(obj.GetKey()), oldObj); err != nil {
 		return "", errors.WithStack(err)
 	}
 	oldObjI, err := oldObj.Update(obj)
