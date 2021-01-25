@@ -9,28 +9,22 @@ import (
 )
 
 type Place struct {
-	UID          UID    `json:"uid"`
-	Name         string `json:"name"`
-	BuildingName string `json:"buildingName"`
-	BuildingType string `json:"buildingType"`
-	Description  string `json:"description"`
-	Address      string `json:"adress"`
-	City         string `json:"city"`
-	OpeningHours string `json:"openingHours"`
-	PostIndex    string `json:"postIndex"`
-	WebSite      string `json:"webSite"`
-	Phones       string `json:"phones"`
-	Email        string `json:"email"`
-	Facebook     string `json:"facebook"`
-	Instagram    string `json:"instagram"`
-	Twitter      string `json:"twitter"`
-	VK           string `json:"vk"`
-
-	TagsUIDs []UID `json:"tagsUIDs"`
-	//под вопросом//
-	HolderOrganization Organization   `json:"organization"`
-	BasedOrganizations []Organization `json:"basedOrganizations"`
-	FreeVisit          bool           `json:"freeVisit"`
+	UID          UID    `json:"uid" bd:"uid"`
+	Name         string `json:"name" db:"name"`
+	BuildingName string `json:"buildingName" db:"buildingName"`
+	BuildingType string `json:"buildingType" db:"buildingType"`
+	Description  string `json:"description" db:"description"`
+	Address      string `json:"adress" db:"adress"`
+	City         string `json:"city" db:"city"`
+	OpeningHours string `json:"openingHours" db:"openingHours"`
+	PostIndex    string `json:"postIndex" db:"postIndex"`
+	WebSite      string `json:"webSite" db:"webSite"`
+	Phones       string `json:"phones" db:"phones"`
+	Email        string `json:"email" db:"email"`
+	Facebook     string `json:"facebook" db:"facebook"`
+	Instagram    string `json:"instagram" db:"instagram"`
+	Twitter      string `json:"twitter" db:"twitter"`
+	VK           string `json:"vk" db:"vk"`
 	//
 }
 
@@ -61,26 +55,22 @@ func (place Place) SetKey(key string) (core.Object, error) {
 //new
 func (place Place) New() core.Object {
 	return Place{
-		UID:                "",
-		Name:               "",
-		BuildingName:       "",
-		BuildingType:       "",
-		Description:        "",
-		Address:            "",
-		City:               "",
-		OpeningHours:       "",
-		PostIndex:          "",
-		WebSite:            "",
-		Phones:             "",
-		Email:              "",
-		Facebook:           "",
-		Instagram:          "",
-		Twitter:            "",
-		VK:                 "",
-		TagsUIDs:           nil,
-		HolderOrganization: Organization{},
-		BasedOrganizations: nil,
-		FreeVisit:          false,
+		UID:          "",
+		Name:         "",
+		BuildingName: "",
+		BuildingType: "",
+		Description:  "",
+		Address:      "",
+		City:         "",
+		OpeningHours: "",
+		PostIndex:    "",
+		WebSite:      "",
+		Phones:       "",
+		Email:        "",
+		Facebook:     "",
+		Instagram:    "",
+		Twitter:      "",
+		VK:           "",
 	}
 }
 

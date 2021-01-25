@@ -9,11 +9,9 @@ import (
 )
 
 type Organization struct {
-	UID         UID    `json:"uid"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	PlacesUIDs  []UID  `json:"placesUIDs"`
-	TagsUIDs    []UID  `json:"tagsUIDs"`
+	UID         UID    `json:"uid" db:"uid"`
+	Name        string `json:"name" db:"name"`
+	Description string `json:"description" db:"description"`
 }
 
 //keys
