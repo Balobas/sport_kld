@@ -2,13 +2,13 @@ package main
 
 import (
 	 "../core/actions"
-	"../data"
+	"../models"
 	"fmt"
 )
 
 func main() {
 
-	place := data.Place{
+	place := models.Place{
 
 	}
 

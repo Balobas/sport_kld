@@ -2,13 +2,13 @@ package actions
 
 import (
 	"../../core"
-	"../../data"
+	"../../models"
 	"../../database"
 	"fmt"
 	"github.com/pkg/errors"
 )
 
-func ActionGet(uid data.UID, obj core.Object) error {
+func ActionGet(uid models.UID, obj core.Object) error {
 	objMap, err := database.DATABASE.Get(uid.String())
 	if err != nil {
 		return errors.WithStack(err)
