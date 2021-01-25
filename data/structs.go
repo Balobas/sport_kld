@@ -30,7 +30,6 @@ type Organization struct {
 	Name           string      `json:"name"`
 	Description    string 	   `json:"description"`
 	PlacesUIDs     []UID       `json:"placesUIDs"`
-	CategoriesUIDs []UID       `json:"categoriesUIDs"`
 	TagsUIDs       []UID       `json:"tagsUIDs"`
 }
 
@@ -38,14 +37,20 @@ type Place struct {
 	UID                UID            `json:"uid"`
 	Name               string         `json:"name"`
 	BuildingName		string			`json:"buildingName"`
+	BuildingType 		string `json:"buildingType"`
 	Description        string         `json:"description"`
-	Adress				string 		`json:"adress"`
+	Address				string 		`json:"adress"`
 	City 				string		`json:"city"`
 	OpeningHours		string 		`json:"openingHours"`
 	PostIndex			string 		`json:"postIndex"`
 	WebSite				string		`json:"webSite"`
 	Phones				string		`json:"phones"`
-	CategoriesUIDs     []UID          `json:"categoriesUIDs"`
+	Email 				string    	`json:"email"`
+	Facebook 		string `json:"facebook"`
+	Instagram	string `json:"instagram"`
+	Twitter string `json:"twitter"`
+	VK string `json:"vk"`
+	
 	TagsUIDs           []UID          `json:"tagsUIDs"`
 	//под вопросом//
 	HolderOrganization Organization   `json:"organization"`
