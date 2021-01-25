@@ -1,21 +1,31 @@
 package place
 
 import (
-	"../../../core/actions"
 	"../../../models"
 	"fmt"
 	"github.com/pkg/errors"
+	"../../../database"
 )
 
 func GetPlaceByUID(uid models.UID) (models.Place, error) {
 	var place models.Place
-	if err := actions.ActionGet(uid, &place); err != nil {
+	fmt.Println(place)
+	if err := database.MysqlDB.Get(&place, "select * from places where uid=?", uid.String()); err != nil {
 		return models.Place{}, errors.WithStack(err)
 	}
-	fmt.Println(place)
 	return place, nil
 }
 
-func GetPlacesByUIDs(uids []models.UID) ([]models.UID, error) {
-	return nil, nil
+func GetPlacesByUIDs(uids []models.UID) ([]models.Place, []error) {
+	var places []models.Place
+	var errs []error
+	for _, uid := range uids {
+		place, err := GetPlaceByUID(uid)
+		if err != nil {
+			errs = append(errs, errors.Wrap(err, "place with uid: " + uid.String() + "  "))
+		} else {
+			places = append(places, place)
+		}
+	}
+	return places, errs
 }
