@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/pkg/errors"
 	uuid "github.com/satori/go.uuid"
+	"../database"
 )
 
 type Place struct {
@@ -54,3 +55,10 @@ func (place *Place) IsValidUID() bool {
 }
 
 //
+
+func (place *Place) GetByUID(uid UID) error {
+	if err := database.MysqlDB.Get(place, "select * from places where uid=?", uid.String()); err != nil {
+		return errors.WithStack(err)
+	}
+	return nil
+}

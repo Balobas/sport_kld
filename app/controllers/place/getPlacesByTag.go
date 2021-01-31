@@ -2,7 +2,7 @@ package place
 
 import "../../../models"
 
-func GetPlacesByTags(tagsUIDs []models.UID) ([]models.Place, error) {
+func GetPlacesByTags(searchString string) ([]models.Place, error) {
 
 	//ищем похожие теги
 
