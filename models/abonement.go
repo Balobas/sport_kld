@@ -6,15 +6,11 @@ import (
 )
 
 type Abonement struct {
-	UID          UID    `json:"uid"`
-	Name         string `json:"name"`
-	Description  string `json:"description"`
-	Price        string `json:"price"`
-	ActivateTime string `json:"activateTime"`
-	//Места, где действует абонемент
-	PlacesUIDs []UID `json:"placesUIDs"`
-	//Виды спорта относящиеся к абонементу
-	CategoriesUIDs []UID `json:"categoriesUIDs"`
+	UID          UID    `json:"uid" db:"uid"`
+	Name         string `json:"name" db:"name"`
+	Description  string `json:"description" db:"description"`
+	Price        string `json:"price" db:"price"`
+	ActivateTime string `json:"activateTime" db:"activateTime"`
 }
 
 //keys
@@ -26,7 +22,6 @@ func (abonement Abonement) GenerateAndSetKey() error {
 	abonement.UID = UID(uid.String())
 	return nil
 }
-
 
 //validations
 func (abonement Abonement) Validate() error {
