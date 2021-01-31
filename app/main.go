@@ -1,19 +1,14 @@
 package main
 
 import (
-	 "../core/actions"
-	"../models"
+	"../app/controllers/place"
 	"fmt"
 )
 
 func main() {
 
-	place := models.Place{
+	p, err := place.GetPlaceByUID("35cc8cde5f0111eb960b0c9d92446328")
 
-	}
-
-	p := &place
-	actions.ActionGet("b2690eaf-0b73-4100-8a14-ebac27ae027c", p)
-	fmt.Println(*p)
+	fmt.Println(p, err)
 }
 

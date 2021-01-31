@@ -1,6 +1,8 @@
 package database
 
 import (
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -8,8 +10,9 @@ var MysqlDB *sqlx.DB
 
 func init() {
 	var  err error
-	MysqlDB, err = sqlx.Connect("mysql", "")
+	MysqlDB, err = sqlx.Connect("mysql", "root:@tcp(localhost:3306)/sport_kld")
 	if err != nil {
+		fmt.Println(err)
 		return
 	}
 
