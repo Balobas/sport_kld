@@ -12,7 +12,7 @@ type Place struct {
 	BuildingName string `json:"buildingName" db:"buildingName"`
 	BuildingType string `json:"buildingType" db:"buildingType"`
 	Description  string `json:"description" db:"description"`
-	Address      string `json:"adress" db:"adress"`
+	Address      string `json:"address" db:"address"`
 	City         string `json:"city" db:"city"`
 	OpeningHours string `json:"openingHours" db:"openingHours"`
 	PostIndex    string `json:"postIndex" db:"postIndex"`

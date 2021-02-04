@@ -16,8 +16,8 @@ func (uid UID) isCorrect() bool {
 }
 
 type Tag struct {
-	UID  UID    `json:"uid"`
-	Name string `json:"name"`
+	UID  UID    `json:"uid" db:"uid"`
+	Name string `json:"name" db:"name"`
 }
 
 type SportCategory struct {
