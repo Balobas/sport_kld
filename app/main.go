@@ -1,7 +1,7 @@
 package main
 
 import (
-	"../app/controllers/place_controller"
+	"./models/place_model"
 	"fmt"
 	_ "fmt"
 )
@@ -10,8 +10,19 @@ func main() {
 	//p, err := place.GetPlacesByUIDs([]models.UID{})
 	//fmt.Println(p, err)
 	//
-	pl, er := place_controller.GetPlacesByTags("Пло")
-	fmt.Println(len(pl), er)
+	//pl, er := place_controller.GetPlacesByTags("Пло")
+	//fmt.Println(len(pl), er)
+
+	//place := place_model.Place{}
+	//num := reflect.TypeOf(&place).Elem().NumField()
+	//
+	//for i := 0; i < num; i++ {
+	//	fmt.Println(reflect.TypeOf(&place).Elem().Field(i).Tag.Get("json"))
+	//}
+
+	p, e := place_model.GetPlacesByFields([]string{"webSite", "phones", "facebook"}, "ad")
+
+	fmt.Println(p, e)
 
 	//query := "INSERT INTO tags VALUES "
 	//var inserts []string
