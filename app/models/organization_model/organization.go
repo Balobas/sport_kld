@@ -1,12 +1,13 @@
-package models
+package organization_model
 
 import (
+	"../../models"
 	"github.com/pkg/errors"
 	uuid "github.com/satori/go.uuid"
 )
 
 type Organization struct {
-	UID         UID    `json:"uid" db:"uid"`
+	UID         models.UID    `json:"uid" db:"uid"`
 	Name        string `json:"name" db:"name"`
 	Description string `json:"description" db:"description"`
 }
@@ -17,7 +18,7 @@ func (org *Organization) GenerateAndSetKey() error {
 	if err != nil {
 		return errors.WithStack(err)
 	}
-	org.UID = UID(uid.String())
+	org.UID = models.UID(uid.String())
 	return nil
 }
 //

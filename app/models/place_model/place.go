@@ -1,13 +1,14 @@
-package models
+package place_model
 
 import (
-	"../../database"
+	"../../../database"
+	"../../models"
 	"github.com/pkg/errors"
 	uuid "github.com/satori/go.uuid"
 )
 
 type Place struct {
-	UID          UID    `json:"uid" bd:"uid"`
+	UID          models.UID    `json:"uid" bd:"uid"`
 	Name         string `json:"name" db:"name"`
 	BuildingName string `json:"buildingName" db:"buildingName"`
 	BuildingType string `json:"buildingType" db:"buildingType"`
@@ -32,7 +33,7 @@ func (place *Place) GenerateAndSetKey() error {
 	if err != nil {
 		return errors.WithStack(err)
 	}
-	place.UID = UID(uid.String())
+	place.UID = models.UID(uid.String())
 	return nil
 }
 //
@@ -49,7 +50,7 @@ func (place *Place) IsValidUID() bool {
 
 //
 
-func (place *Place) GetByUID(uid UID) error {
+func (place *Place) GetByUID(uid models.UID) error {
 	if err := database.MysqlDB.Get(place, "select * from places where uid=?", uid.String()); err != nil {
 		return errors.WithStack(err)
 	}

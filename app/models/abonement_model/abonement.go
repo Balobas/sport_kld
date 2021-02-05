@@ -1,12 +1,13 @@
-package models
+package abonement_model
 
 import (
+	"../../models"
 	"github.com/pkg/errors"
 	uuid "github.com/satori/go.uuid"
 )
 
 type Abonement struct {
-	UID          UID    `json:"uid" db:"uid"`
+	UID          models.UID    `json:"uid" db:"uid"`
 	Name         string `json:"name" db:"name"`
 	Description  string `json:"description" db:"description"`
 	Price        string `json:"price" db:"price"`
@@ -19,7 +20,7 @@ func (abonement Abonement) GenerateAndSetKey() error {
 	if err != nil {
 		return errors.WithStack(err)
 	}
-	abonement.UID = UID(uid.String())
+	abonement.UID = models.UID(uid.String())
 	return nil
 }
 

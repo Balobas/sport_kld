@@ -1,10 +1,12 @@
 package place
 
-import "../../models"
+import (
+	"../../models/place_model"
+)
 
-func GetPlacesByFields(fieldsNames []string, searchString string) (models.Place, error)  {
+func GetPlacesByFields(fieldsNames []string, searchString string) (place_model.Place, error)  {
 
 	//ищем места где содержимое полей похоже на строку поиска
 
-	return models.Place{}, nil
+	return place_model.Place{}, nil
 }

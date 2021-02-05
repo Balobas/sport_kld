@@ -3,13 +3,14 @@ package place
 import (
 	"../../../database"
 	"../../models"
+	"../../models/place_model"
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 	"strings"
 )
 
-func GetPlacesByTags(searchString string) ([]models.Place, []error) {
+func GetPlacesByTags(searchString string) ([]place_model.Place, []error) {
 
 	var err error
 
@@ -41,7 +42,7 @@ func GetPlacesByTags(searchString string) ([]models.Place, []error) {
 	}
 
 	if len(tags) == 0 {
-		return []models.Place{}, nil
+		return []place_model.Place{}, nil
 	}
 
 	//по тегам ищем места находим все uid подходящих мест
@@ -82,9 +83,9 @@ func GetPlacesByTags(searchString string) ([]models.Place, []error) {
 		return nil, append(resultErrors, errors.Wrap(err, "cant select places"))
 	}
 
-	var result []models.Place
+	var result []place_model.Place
 	for rows.Next() {
-		var place models.Place
+		var place place_model.Place
 		if err := rows.Scan(&place.UID, &place.Name, &place.BuildingName,
 			&place.BuildingType, &place.Description,
 			&place.Address, &place.City,
