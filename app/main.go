@@ -1,7 +1,7 @@
 package main
 
 import (
-	"../app/controllers/place"
+	"../app/controllers/place_controller"
 	"fmt"
 	_ "fmt"
 )
@@ -10,7 +10,7 @@ func main() {
 	//p, err := place.GetPlacesByUIDs([]models.UID{})
 	//fmt.Println(p, err)
 	//
-	pl, er := place.GetPlacesByTags("Пло")
+	pl, er := place_controller.GetPlacesByTags("Пло")
 	fmt.Println(len(pl), er)
 
 	//query := "INSERT INTO tags VALUES "
