@@ -2,7 +2,7 @@ package place
 
 import (
 	"../../../database"
-	"../../../models"
+	"../../models"
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
