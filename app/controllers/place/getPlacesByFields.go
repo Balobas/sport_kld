@@ -1,6 +1,6 @@
 package place
 
-import "../../../models"
+import "../../models"
 
 func GetPlacesByFields(fieldsNames []string, searchString string) (models.Place, error)  {
 

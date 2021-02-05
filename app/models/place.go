@@ -1,9 +1,9 @@
 package models
 
 import (
+	"../../database"
 	"github.com/pkg/errors"
 	uuid "github.com/satori/go.uuid"
-	"../database"
 )
 
 type Place struct {

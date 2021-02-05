@@ -1,7 +1,7 @@
 package place
 
 import (
-	"../../../models"
+	"../../models"
 	"fmt"
 	"github.com/pkg/errors"
 	"../../../database"
