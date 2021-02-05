@@ -11,6 +11,7 @@ func GetByUID(uid models.UID) (Place, error) {
 	if err := database.MysqlDB.Get(&place, "select * from places where uid=?", uid.String()); err != nil {
 		return Place{}, errors.WithStack(err)
 	}
+	place.Preprocess()
 	return place, nil
 }
 

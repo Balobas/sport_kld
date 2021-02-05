@@ -22,3 +22,21 @@ type Place struct {
 	Twitter      string `json:"twitter" db:"twitter"`
 	VK           string `json:"vk" db:"vk"`
 }
+
+func (place *Place) Preprocess() {
+	models.ReplaceNoneOrNanValueByEmptyString(&place.Name)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.BuildingName)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.BuildingType)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.Description)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.Address)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.City)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.OpeningHours)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.PostIndex)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.WebSite)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.Phones)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.Email)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.Facebook)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.Instagram)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.Twitter)
+	models.ReplaceNoneOrNanValueByEmptyString(&place.VK)
+}

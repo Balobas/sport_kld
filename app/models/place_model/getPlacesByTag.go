@@ -91,10 +91,11 @@ func GetPlacesByTags(searchString string) ([]Place, []error) {
 			&place.OpeningHours, &place.PostIndex,
 			&place.WebSite, &place.Phones, &place.Email,
 			&place.Facebook, &place.Instagram, &place.Twitter, &place.VK);
-			err != nil {
+		err != nil {
 			resultErrors = append(resultErrors, errors.Wrap(err, "cant scan place"))
 			continue
 		}
+		place.Preprocess()
 		result = append(result, place)
 	}
 
