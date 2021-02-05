@@ -4,7 +4,6 @@ import (
 	"../../../database"
 	"../../models"
 	"github.com/pkg/errors"
-	uuid "github.com/satori/go.uuid"
 )
 
 type Place struct {
@@ -24,31 +23,7 @@ type Place struct {
 	Instagram    string `json:"instagram" db:"instagram"`
 	Twitter      string `json:"twitter" db:"twitter"`
 	VK           string `json:"vk" db:"vk"`
-	//
 }
-
-//keys
-func (place *Place) GenerateAndSetKey() error {
-	uid, err := uuid.NewV4()
-	if err != nil {
-		return errors.WithStack(err)
-	}
-	place.UID = models.UID(uid.String())
-	return nil
-}
-//
-
-//validations
-func (place *Place) Validate() error {
-
-	return nil
-}
-
-func (place *Place) IsValidUID() bool {
-	return len(place.UID) != 0
-}
-
-//
 
 func (place *Place) GetByUID(uid models.UID) error {
 	if err := database.MysqlDB.Get(place, "select * from places where uid=?", uid.String()); err != nil {
