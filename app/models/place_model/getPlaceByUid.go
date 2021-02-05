@@ -6,9 +6,12 @@ import (
 	"github.com/pkg/errors"
 )
 
-func (place *Place) GetByUID(uid models.UID) error {
-	if err := database.MysqlDB.Get(place, "select * from places where uid=?", uid.String()); err != nil {
-		return errors.WithStack(err)
+func GetByUID(uid models.UID) (Place, error) {
+	var place Place
+	if err := database.MysqlDB.Get(&place, "select * from places where uid=?", uid.String()); err != nil {
+		return Place{}, errors.WithStack(err)
 	}
-	return nil
+	return place, nil
 }
+
+
