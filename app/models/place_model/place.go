@@ -1,9 +1,7 @@
 package place_model
 
 import (
-	"../../../database"
 	"../../models"
-	"github.com/pkg/errors"
 )
 
 type Place struct {
@@ -23,11 +21,4 @@ type Place struct {
 	Instagram    string `json:"instagram" db:"instagram"`
 	Twitter      string `json:"twitter" db:"twitter"`
 	VK           string `json:"vk" db:"vk"`
-}
-
-func (place *Place) GetByUID(uid models.UID) error {
-	if err := database.MysqlDB.Get(place, "select * from places where uid=?", uid.String()); err != nil {
-		return errors.WithStack(err)
-	}
-	return nil
 }
