@@ -9,3 +9,8 @@ type Organization struct {
 	Name        string `json:"name" db:"name"`
 	Description string `json:"description" db:"description"`
 }
+
+func (organization *Organization) Preprocess() {
+	models.ReplaceNoneOrNanValueByEmptyString(&organization.Name)
+	models.ReplaceNoneOrNanValueByEmptyString(&organization.Description)
+}
