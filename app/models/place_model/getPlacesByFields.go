@@ -10,24 +10,30 @@ import (
 func GetPlacesByFields(fieldsNames []string, searchString string) ([]Place, []error)  {
 
 	//ищем места где содержимое полей похоже на строку поиска
-	var validDBFieldsNames []string
+	var dbConditionPart []string
 
 	numFields := reflect.TypeOf(&Place{}).Elem().NumField()
 
-	for i := 0; i < numFields; i++ {
-		fieldTag := reflect.TypeOf(&Place{}).Elem().Field(i).Tag.Get("json")
+	if len(fieldsNames) == 0 {
+		for i := 0; i < numFields; i++ {
+			dbConditionPart = append(dbConditionPart, " " + reflect.TypeOf(&Place{}).Elem().Field(i).Tag.Get("db") + " like ? ")
+		}
+	} else {
+		for i := 0; i < numFields; i++ {
+			fieldTag := reflect.TypeOf(&Place{}).Elem().Field(i).Tag.Get("json")
 
-		for _, field := range fieldsNames {
-			if field == fieldTag {
-				validDBFieldsNames = append(validDBFieldsNames, " " + reflect.TypeOf(&Place{}).Elem().Field(i).Tag.Get("db") + " like ? ")
+			for _, field := range fieldsNames {
+				if field == fieldTag {
+					dbConditionPart = append(dbConditionPart, " " + reflect.TypeOf(&Place{}).Elem().Field(i).Tag.Get("db") + " like ? ")
+				}
 			}
 		}
 	}
 
-	query := "select * from places where " + strings.Join(validDBFieldsNames, " or ")
+	query := "select * from places where " + strings.Join(dbConditionPart, " or ")
 
 	var params []interface{}
-	for i := 0; i < len(validDBFieldsNames); i++ {
+	for i := 0; i < len(dbConditionPart); i++ {
 		params = append(params, "%" + searchString + "%")
 	}
 
