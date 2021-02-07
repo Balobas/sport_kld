@@ -10,7 +10,7 @@ import (
 func GetPlacesByFields(fieldsNames []string, searchString string) ([]Place, []error)  {
 
 	//ищем места где содержимое полей похоже на строку поиска
-	var validFieldsNamesWithLike []string
+	var validDBFieldsNames []string
 
 	numFields := reflect.TypeOf(&Place{}).Elem().NumField()
 
@@ -19,15 +19,15 @@ func GetPlacesByFields(fieldsNames []string, searchString string) ([]Place, []er
 
 		for _, field := range fieldsNames {
 			if field == fieldTag {
-				validFieldsNamesWithLike = append(validFieldsNamesWithLike, " " + fieldTag + " like ? ")
+				validDBFieldsNames = append(validDBFieldsNames, " " + reflect.TypeOf(&Place{}).Elem().Field(i).Tag.Get("db") + " like ? ")
 			}
 		}
 	}
 
-	query := "select * from places where " + strings.Join(validFieldsNamesWithLike, " or ")
+	query := "select * from places where " + strings.Join(validDBFieldsNames, " or ")
 
 	var params []interface{}
-	for i := 0; i < len(validFieldsNamesWithLike); i++ {
+	for i := 0; i < len(validDBFieldsNames); i++ {
 		params = append(params, "%" + searchString + "%")
 	}
 
@@ -47,7 +47,7 @@ func GetPlacesByFields(fieldsNames []string, searchString string) ([]Place, []er
 			&place.OpeningHours, &place.PostIndex,
 			&place.WebSite, &place.Phones, &place.Email,
 			&place.Facebook, &place.Instagram, &place.Twitter, &place.VK);
-			err != nil {
+		err != nil {
 			resultErrors = append(resultErrors, errors.Wrap(err, "cant scan place"))
 			continue
 		}
