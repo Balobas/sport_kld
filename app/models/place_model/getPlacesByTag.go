@@ -3,19 +3,21 @@ package place_model
 import (
 	"../../../database"
 	"../../models"
-	"fmt"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 	"strings"
 )
 
 func GetPlacesByTags(searchString string) ([]Place, []error) {
-
-	var err error
+	if len(strings.TrimLeft(strings.TrimRight(searchString, " "), " ")) == 0 {
+		return nil, []error{errors.New("empty search string")}
+	}
 
 	//ищем похожие теги
 	var tags []models.Tag
 	var rows *sqlx.Rows
+
+	var err error
 
 	if len(searchString) > 3 {
 		rows, err = database.MysqlDB.Queryx("select * from tags where name like ? or name like ? ", "%" + searchString + "%", "%" + searchString[:len(searchString) - 2] + "%")
@@ -37,7 +39,6 @@ func GetPlacesByTags(searchString string) ([]Place, []error) {
 			continue
 		}
 		tags = append(tags, tag)
-		fmt.Println(tag)
 	}
 
 	if len(tags) == 0 {
@@ -55,7 +56,6 @@ func GetPlacesByTags(searchString string) ([]Place, []error) {
 
 	rows, err = database.MysqlDB.Queryx("select * from places_tags where " + strings.Join(wherePart, " or "), uids...)
 	if err != nil {
-		fmt.Println("select * from places_tags where " + strings.Join(wherePart, " or "))
 		return nil, append(resultErrors, errors.Wrap(err, "cant select places uids"))
 	}
 
@@ -71,7 +71,6 @@ func GetPlacesByTags(searchString string) ([]Place, []error) {
 	}
 
 	// забираем все подходящие места из базы
-
 	wherePart = []string{}
 	for i := 0; i < len(placesUids); i++ {
 		wherePart = append(wherePart, " uid=? ")
@@ -91,10 +90,11 @@ func GetPlacesByTags(searchString string) ([]Place, []error) {
 			&place.OpeningHours, &place.PostIndex,
 			&place.WebSite, &place.Phones, &place.Email,
 			&place.Facebook, &place.Instagram, &place.Twitter, &place.VK);
-			err != nil {
+		err != nil {
 			resultErrors = append(resultErrors, errors.Wrap(err, "cant scan place"))
 			continue
 		}
+		place.Preprocess()
 		result = append(result, place)
 	}
 

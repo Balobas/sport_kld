@@ -2,8 +2,6 @@ package organization_model
 
 import (
 	"../../models"
-	"github.com/pkg/errors"
-	uuid "github.com/satori/go.uuid"
 )
 
 type Organization struct {
@@ -12,25 +10,7 @@ type Organization struct {
 	Description string `json:"description" db:"description"`
 }
 
-//keys
-func (org *Organization) GenerateAndSetKey() error {
-	uid, err := uuid.NewV4()
-	if err != nil {
-		return errors.WithStack(err)
-	}
-	org.UID = models.UID(uid.String())
-	return nil
+func (organization *Organization) Preprocess() {
+	models.ReplaceNoneOrNanValueByEmptyString(&organization.Name)
+	models.ReplaceNoneOrNanValueByEmptyString(&organization.Description)
 }
-//
-
-//validations
-func (org Organization) Validate() error {
-
-	return nil
-}
-
-func (org Organization) IsValidUID() bool {
-	return len(org.UID) != 0
-}
-
-//
