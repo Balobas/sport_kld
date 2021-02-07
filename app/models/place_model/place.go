@@ -5,7 +5,7 @@ import (
 )
 
 type Place struct {
-	UID          models.UID    `json:"uid" bd:"uid"`
+	UID          models.UID    `json:"uid" db:"uid"`
 	Name         string `json:"name" db:"name"`
 	BuildingName string `json:"buildingName" db:"buildingName"`
 	BuildingType string `json:"buildingType" db:"buildingType"`
