@@ -45,6 +45,7 @@ func GetPlacesByUIDs(uids []models.UID) ([]Place, []error) {
 			resultErrors = append(resultErrors, errors.Wrap(err, "cant scan place"))
 			continue
 		}
+		place.Preprocess()
 		result = append(result, place)
 	}
 
