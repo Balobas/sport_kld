@@ -146,7 +146,47 @@ func GetPlacesByFields(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetOrganizationPlaces(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		res := []byte("wrong http method. access denied")
+		if _, err := w.Write(res); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
 
+	if r.URL.Query().Get("organization_uid") == "" {
+		if _, err := w.Write([]byte("not found 'organization_uid' key in get query")); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	orgUid := r.URL.Query().Get("organization_uid")
+
+	var errs []error
+
+	resultParams := struct {
+		Places []place_model.Place  `json:"places"`
+		Errors []string 			`json:"errors"`
+	}{}
+
+	resultParams.Places, errs = place_controller.GetPlacesByOrganizationUID(orgUid)
+
+	for _, err := range errs {
+		resultParams.Errors = append(resultParams.Errors, err.Error())
+	}
+
+	b, err := json.Marshal(resultParams)
+	if err != nil {
+		if _, err := w.Write([]byte("cant marshal json")); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	if _, err := w.Write(b); err != nil {
+		fmt.Println("cant write bytes")
+	}
 }
 
 func GetPlacesByTag(w http.ResponseWriter, r *http.Request) {
