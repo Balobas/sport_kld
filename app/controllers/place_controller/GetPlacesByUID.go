@@ -7,11 +7,7 @@ import (
 )
 
 func GetPlaceByUID(uid string) (place_model.Place, error) {
-	place, err := place_model.GetByUID(models.UID(uid))
-	if err != nil {
-		return place_model.Place{}, errors.WithStack(err)
-	}
-	return place, nil
+	return place_model.GetByUID(models.UID(uid))
 }
 
 func GetPlacesByUIDs(uids []string) ([]place_model.Place, []error) {
