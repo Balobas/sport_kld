@@ -1,8 +1,8 @@
 package place_model
 
 import (
-	"../../../database"
-	"../../models"
+	"sport_kld/database"
+	"sport_kld/app/models"
 	"github.com/pkg/errors"
 	"strings"
 )

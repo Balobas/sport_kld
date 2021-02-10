@@ -1,7 +1,7 @@
 package place_model
 
 import (
-	"../../../database"
+	"sport_kld/database"
 	"github.com/pkg/errors"
 	"reflect"
 	"strings"

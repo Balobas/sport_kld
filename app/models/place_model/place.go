@@ -1,7 +1,7 @@
 package place_model
 
 import (
-	"../../models"
+	"sport_kld/app/models"
 )
 
 type Place struct {

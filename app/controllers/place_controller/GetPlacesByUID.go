@@ -1,8 +1,8 @@
 package place_controller
 
 import (
-	"../../models"
-	"../../models/place_model"
+	"sport_kld/app/models"
+	"sport_kld/app/models/place_model"
 	"github.com/pkg/errors"
 )
 

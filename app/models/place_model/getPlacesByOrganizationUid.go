@@ -2,9 +2,9 @@ package place_model
 
 
 import (
-	"../../models"
-	"../../../database"
 	"github.com/pkg/errors"
+	"sport_kld/app/models"
+	"sport_kld/database"
 )
 
 func GetPlacesByOrganizationUID(orgUid models.UID) ([]Place, []error) {

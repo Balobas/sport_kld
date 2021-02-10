@@ -5,8 +5,8 @@
 package api
 
 import (
-	"../controllers/place_controller"
-	"../models/place_model"
+	"sport_kld/app/controllers/place_controller"
+	"sport_kld/app/models/place_model"
 	"encoding/json"
 	"fmt"
 	"net/http"

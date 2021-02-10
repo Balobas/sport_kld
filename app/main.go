@@ -1,8 +1,8 @@
 package main
 
 import (
-	"../app/api"
 	"net/http"
+	"sport_kld/app/api"
 )
 
 func main() {
@@ -11,6 +11,5 @@ func main() {
 	http.HandleFunc("/places_by_fields", api.GetPlacesByFields)
 	http.HandleFunc("/organization_places", api.GetOrganizationPlaces)
 
-	http.ListenAndServe(":8095", nil)
+	http.ListenAndServe(":8080", nil)
 }
-

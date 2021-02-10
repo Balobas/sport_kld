@@ -5,9 +5,9 @@ package database
 */
 
 import (
-	"../app/settings"
 	"github.com/leesper/couchdb-golang"
 	"github.com/pkg/errors"
+	"sport_kld/app/settings"
 	"strings"
 )
 

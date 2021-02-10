@@ -1,9 +1,7 @@
 package abonement_model
 
 import (
-	"../../models"
-	"github.com/pkg/errors"
-	uuid "github.com/satori/go.uuid"
+	"sport_kld/app/models"
 )
 
 type Abonement struct {
@@ -13,25 +11,3 @@ type Abonement struct {
 	Price        string `json:"price" db:"price"`
 	ActivateTime string `json:"activateTime" db:"activateTime"`
 }
-
-//keys
-func (abonement Abonement) GenerateAndSetKey() error {
-	uid, err := uuid.NewV4()
-	if err != nil {
-		return errors.WithStack(err)
-	}
-	abonement.UID = models.UID(uid.String())
-	return nil
-}
-
-//validations
-func (abonement Abonement) Validate() error {
-
-	return nil
-}
-
-func (abonement Abonement) IsValidUID() bool {
-	return len(abonement.UID) != 0
-}
-
-//

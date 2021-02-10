@@ -1,7 +1,7 @@
 package place_controller
 
 import (
-	"../../models/place_model"
+	"sport_kld/app/models/place_model"
 )
 
 func GetPlacesByFields(fieldsNames []string, searchString string) ([]place_model.Place, []error)  {

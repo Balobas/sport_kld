@@ -1,10 +1,10 @@
 package place_model
 
 import (
-	"../../../database"
-	"../../models"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
+	"sport_kld/app/models"
+	"sport_kld/database"
 	"strings"
 )
 

@@ -1,7 +1,7 @@
 package organization_model
 
 import (
-	"../../models"
+	"sport_kld/app/models"
 )
 
 type Organization struct {
