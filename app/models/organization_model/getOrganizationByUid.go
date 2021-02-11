@@ -23,6 +23,5 @@ func GetOrganizationsByUIDs(uids []models.UID) (result []Organization, resultErr
 			result = append(result, org)
 		}
 	}
-
 	return
 }
