@@ -85,7 +85,7 @@ func GetOrganizationsByTags(searchString string) ([]Organization, []error) {
 	var result []Organization
 	for rows.Next() {
 		var org Organization
-		if err := rows.Scan(); err != nil {
+		if err := rows.Scan(&org.UID, &org.Name, &org.Description); err != nil {
 			resultErrors = append(resultErrors, errors.Wrap(err, "cant scan organization"))
 			continue
 		}
