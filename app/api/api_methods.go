@@ -190,5 +190,45 @@ func GetOrganizationPlaces(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetPlacesByTag(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		res := []byte("wrong http method. access denied")
+		if _, err := w.Write(res); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
 
+	if r.URL.Query().Get("search") == "" {
+		if _, err := w.Write([]byte("not found 'search' key in get query")); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	searchString := r.URL.Query().Get("search")
+
+	var errs []error
+
+	resultParams := struct {
+		Places []place_model.Place  `json:"places"`
+		Errors []string 			`json:"errors"`
+	}{}
+
+	resultParams.Places, errs = place_controller.GetPlacesByTags(searchString)
+
+	for _, err := range errs {
+		resultParams.Errors = append(resultParams.Errors, err.Error())
+	}
+
+	b, err := json.Marshal(resultParams)
+	if err != nil {
+		if _, err := w.Write([]byte("cant marshal json")); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	if _, err := w.Write(b); err != nil {
+		fmt.Println("cant write bytes")
+	}
 }
