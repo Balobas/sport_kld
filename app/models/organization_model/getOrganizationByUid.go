@@ -14,3 +14,15 @@ func GetOrganizationByUID(uid models.UID) (Organization, error) {
 	org.Preprocess()
 	return org, nil
 }
+
+func GetOrganizationsByUIDs(uids []models.UID) (result []Organization, resultErrors []error) {
+	for _, uid := range uids {
+		if org, err := GetOrganizationByUID(uid); err != nil {
+			resultErrors = append(resultErrors, err)
+		} else {
+			result = append(result, org)
+		}
+	}
+
+	return
+}
