@@ -1,14 +1,13 @@
 package place_model
 
 import (
-	"../place_model"
 	"testing"
 )
 
 func TestGetPlacesByTags(t *testing.T) {
 	// Поиск по одному полю.
 	searchString := "фитнес"
-	places, errors := place_model.GetPlacesByTags(searchString)
+	places, errors := GetPlacesByTags(searchString)
 	if errors != nil {
 		t.Log(errors)
 		t.Log("FAIL: cant select places by on tag")
@@ -19,7 +18,7 @@ func TestGetPlacesByTags(t *testing.T) {
 	}
 
 	searchString = ""
-	places, errors = place_model.GetPlacesByTags(searchString)
+	places, errors = GetPlacesByTags(searchString)
 	if errors != nil {
 		t.Log(errors)
 	} else {

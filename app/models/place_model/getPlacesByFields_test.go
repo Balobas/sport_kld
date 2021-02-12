@@ -1,7 +1,6 @@
 package place_model
 
 import (
-	"../place_model"
 	"testing"
 )
 
@@ -10,7 +9,7 @@ func TestGetPlacesByFields(t *testing.T) {
 	searchString := "Альбатрос"
 	fieldsNames := []string{"name"}
 
-	places, errors := place_model.GetPlacesByFields(fieldsNames, searchString)
+	places, errors := GetPlacesByFields(fieldsNames, searchString)
 	if errors != nil {
 		t.Log(errors)
 		t.Log("FAIL: cant select place by on field")
@@ -24,7 +23,7 @@ func TestGetPlacesByFields(t *testing.T) {
 	searchString = "Баскетбол"
 	fieldsNames = []string{"name", "description"}
 
-	places, errors = place_model.GetPlacesByFields(fieldsNames, searchString)
+	places, errors = GetPlacesByFields(fieldsNames, searchString)
 	if errors != nil {
 		t.Log(errors)
 		t.Log("FAIL: cant select places by two fields")
@@ -38,7 +37,7 @@ func TestGetPlacesByFields(t *testing.T) {
 	searchString = "Футбол"
 	fieldsNames = []string{}
 
-	places, errors = place_model.GetPlacesByFields(fieldsNames, searchString)
+	places, errors = GetPlacesByFields(fieldsNames, searchString)
 	if errors != nil {
 		t.Log(errors)
 		t.Log("FAIL: cant select places by empty fields array")
