@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func GetPlacesByFields(fieldsNames []string, searchString string) ([]Organization, []error)  {
+func GetOrganizationsByFields(fieldsNames []string, searchString string) ([]Organization, []error)  {
 
 	//ищем организации где содержимое полей похоже на строку поиска
 	var dbConditionPart []string
