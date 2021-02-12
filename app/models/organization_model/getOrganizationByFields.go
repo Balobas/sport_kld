@@ -30,7 +30,7 @@ func GetOrganizationsByFields(fieldsNames []string, searchString string) ([]Orga
 		}
 	}
 
-	query := "select * from organization where " + strings.Join(dbConditionPart, " or ")
+	query := "select * from organizations where " + strings.Join(dbConditionPart, " or ")
 
 	var params []interface{}
 	for i := 0; i < len(dbConditionPart); i++ {
