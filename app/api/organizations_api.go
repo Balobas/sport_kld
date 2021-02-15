@@ -5,8 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"sport_kld/app/controllers/organization_controller"
-	"sport_kld/app/controllers/place_controller"
-	"sport_kld/app/models/place_model"
+	"sport_kld/app/models/organization_model"
 	"sport_kld/app/utils"
 )
 
@@ -62,13 +61,13 @@ func GetOrganizationsByUIDs(w http.ResponseWriter, r *http.Request) {
 	}
 
 	resultParams := struct {
-		Places []place_model.Place `json:"places"`
+		Organizations []organization_model.Organization `json:"organization"`
 		Errors []string `json:"errors"`
 	}{}
 
 	var errs []error
 
-	resultParams.Places, errs = place_controller.GetPlacesByUIDs(uids)
+	resultParams.Organizations, errs = organization_controller.GetOrganizationsByUIDs(uids)
 
 	for _, err := range errs {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
@@ -81,3 +80,4 @@ func GetOrganizationsByUIDs(w http.ResponseWriter, r *http.Request) {
 	}
 	_ = utils.WriteToResponseWriter(w, b)
 }
+
