@@ -10,20 +10,17 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"sport_kld/app/utils"
 )
 
 func GetPlaceByUID(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		res := []byte("wrong http method. access denied")
-		if _, err := w.Write(res); err != nil {
-			fmt.Println("cant write bytes")
-		}
+	if utils.HandleHTTPMethod(w, http.MethodGet, r.Method) != nil {
 		return
 	}
 
 	if r.URL.Query().Get("uid") == "" {
-		if _, err := w.Write([]byte("not found uid key in get query")); err != nil {
-			fmt.Println("cant write bytes")
+		if utils.WriteToResponseWriter(w, []byte("not found uid key in get query")) != nil {
+			return
 		}
 		return
 	}
@@ -32,31 +29,20 @@ func GetPlaceByUID(w http.ResponseWriter, r *http.Request) {
 
 	place, err := place_controller.GetPlaceByUID(uid)
 	if err != nil {
-		res := []byte(err.Error())
-		if _, err := w.Write(res); err != nil {
-			fmt.Println("cant write bytes")
-		}
+		_ = utils.WriteToResponseWriter(w, []byte(err.Error()))
 		return
 	}
+
 	b, err := json.Marshal(place)
 	if err != nil {
-		res := []byte(err.Error())
-		if _, err := w.Write(res); err != nil {
-			fmt.Println("cant write bytes")
-		}
+		_ = utils.WriteToResponseWriter(w, []byte(err.Error()))
 		return
 	}
-	if _, err := w.Write(b); err != nil {
-		fmt.Println("cant write bytes")
-	}
+	_ = utils.WriteToResponseWriter(w, b)
 }
 
 func GetPlacesByUIDs(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		res := []byte("wrong http method. access denied")
-		if _, err := w.Write(res); err != nil {
-			fmt.Println("cant write bytes")
-		}
+	if utils.HandleHTTPMethod(w, http.MethodGet, r.Method) != nil {
 		return
 	}
 
@@ -103,12 +89,13 @@ func GetPlacesByUIDs(w http.ResponseWriter, r *http.Request) {
 
 func GetPlacesByFields(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
-		res := []byte("wrong http method. access denied")
-		if _, err := w.Write(res); err != nil {
-			fmt.Println("cant write bytes")
+		if utils.WriteToResponseWriter(w, []byte("wrong http method. access denied")) != nil {
+			return
 		}
 		return
 	}
+
+
 
 	if r.URL.Query().Get("search") == "" {
 		if _, err := w.Write([]byte("not found 'search' key in get query")); err != nil {
