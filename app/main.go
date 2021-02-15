@@ -13,7 +13,7 @@ func main() {
 	http.HandleFunc("/places_by_tag", api.GetPlacesByTag)
 
 	http.HandleFunc("/organization", api.GetOrganizationByUID)
-
+	http.HandleFunc("/organizations", api.GetOrganizationsByUIDs)
 
 	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {})
 	http.HandleFunc("/favicon.ico", func(writer http.ResponseWriter, request *http.Request) {})
