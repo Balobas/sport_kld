@@ -16,6 +16,7 @@ func main() {
 	http.HandleFunc("/organizations", api.GetOrganizationsByUIDs)
 	http.HandleFunc("/organizations_by_fields", api.GetOrganizationsByFields)
 	http.HandleFunc("/place_organization", api.GetPlaceOrganization)
+	http.HandleFunc("/organizations_by_tag", api.GetOrganizationsByTag)
 
 	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {})
 	http.HandleFunc("/favicon.ico", func(writer http.ResponseWriter, request *http.Request) {})

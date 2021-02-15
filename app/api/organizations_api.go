@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"net/http"
 	"sport_kld/app/controllers/organization_controller"
+	"sport_kld/app/controllers/place_controller"
 	"sport_kld/app/models/organization_model"
+	"sport_kld/app/models/place_model"
 	"sport_kld/app/utils"
 )
 
@@ -145,5 +147,38 @@ func GetPlaceOrganization(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	_ = utils.WriteToResponseWriter(w, b)
+}
+
+func GetOrganizationsByTag(w http.ResponseWriter, r *http.Request) {
+	if utils.HandleHTTPMethod(w, http.MethodGet, r.Method) != nil {
+		return
+	}
+
+	if r.URL.Query().Get("search") == "" {
+		_ = utils.WriteToResponseWriter(w, []byte("not found 'search' key in get query"))
+		return
+	}
+
+	searchString := r.URL.Query().Get("search")
+
+	var errs []error
+
+	resultParams := struct {
+		Places []place_model.Place  `json:"places"`
+		Errors []string 			`json:"errors"`
+	}{}
+
+	resultParams.Places, errs = place_controller.GetPlacesByTags(searchString)
+
+	for _, err := range errs {
+		resultParams.Errors = append(resultParams.Errors, err.Error())
+	}
+
+	b, err := json.Marshal(resultParams)
+	if err != nil {
+		_ = utils.WriteToResponseWriter(w, []byte("cant marshal json"))
+		return
+	}
 	_ = utils.WriteToResponseWriter(w, b)
 }
