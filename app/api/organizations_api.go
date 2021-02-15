@@ -113,3 +113,37 @@ func GetOrganizationsByFields(w http.ResponseWriter, r *http.Request) {
 	}
 	_ = utils.WriteToResponseWriter(w, b)
 }
+
+func GetPlaceOrganization(w http.ResponseWriter, r *http.Request) {
+	if utils.HandleHTTPMethod(w, http.MethodGet, r.Method) != nil {
+		return
+	}
+
+	if r.URL.Query().Get("place_uid") == "" {
+		_ = utils.WriteToResponseWriter(w, []byte("not found 'organization_uid' key in get query"))
+		return
+	}
+
+	placeUid := r.URL.Query().Get("place_uid")
+
+	var errs []error
+
+	resultParams := struct {
+		Organizations []organization_model.Organization `json:"organization"`
+		Errors []string `json:"errors"`
+	}{}
+
+	resultParams.Organizations, errs = organization_controller.GetOrganizationByPlaceUID(placeUid)
+
+	for _, err := range errs {
+		resultParams.Errors = append(resultParams.Errors, err.Error())
+	}
+
+	b, err := json.Marshal(resultParams)
+	if err != nil {
+		_ = utils.WriteToResponseWriter(w, []byte("cant marshal json"))
+		return
+	}
+
+	_ = utils.WriteToResponseWriter(w, b)
+}
