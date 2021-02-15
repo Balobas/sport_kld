@@ -5,9 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"sport_kld/app/controllers/organization_controller"
-	"sport_kld/app/controllers/place_controller"
 	"sport_kld/app/models/organization_model"
-	"sport_kld/app/models/place_model"
 	"sport_kld/app/utils"
 )
 
@@ -63,7 +61,7 @@ func GetOrganizationsByUIDs(w http.ResponseWriter, r *http.Request) {
 	}
 
 	resultParams := struct {
-		Organizations []organization_model.Organization `json:"organization"`
+		Organizations []organization_model.Organization `json:"organizations"`
 		Errors []string `json:"errors"`
 	}{}
 
@@ -98,7 +96,7 @@ func GetOrganizationsByFields(w http.ResponseWriter, r *http.Request) {
 	var errs []error
 
 	resultParams := struct {
-		Organizations []organization_model.Organization `json:"organization"`
+		Organizations []organization_model.Organization `json:"organizations"`
 		Errors []string `json:"errors"`
 	}{}
 
@@ -131,7 +129,7 @@ func GetPlaceOrganization(w http.ResponseWriter, r *http.Request) {
 	var errs []error
 
 	resultParams := struct {
-		Organizations []organization_model.Organization `json:"organization"`
+		Organizations []organization_model.Organization `json:"organizations"`
 		Errors []string `json:"errors"`
 	}{}
 
@@ -165,11 +163,11 @@ func GetOrganizationsByTag(w http.ResponseWriter, r *http.Request) {
 	var errs []error
 
 	resultParams := struct {
-		Places []place_model.Place  `json:"places"`
-		Errors []string 			`json:"errors"`
+		Organizations []organization_model.Organization `json:"organizations"`
+		Errors []string `json:"errors"`
 	}{}
 
-	resultParams.Places, errs = place_controller.GetPlacesByTags(searchString)
+	resultParams.Organizations, errs = organization_controller.GetOrganizationsByTags(searchString)
 
 	for _, err := range errs {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
