@@ -18,8 +18,8 @@ func main() {
 	http.HandleFunc("/place_organization", api.GetPlaceOrganization)
 	http.HandleFunc("/organizations_by_tag", api.GetOrganizationsByTag)
 
-	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {})
-	http.HandleFunc("/favicon.ico", func(writer http.ResponseWriter, request *http.Request) {})
+	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {writer.Write([]byte("//////"))})
+	http.HandleFunc("/favicon.ico", func(writer http.ResponseWriter, request *http.Request) {writer.Write([]byte("favicon ico"))})
 
 	http.ListenAndServe(":8080", nil)
 }
