@@ -30,7 +30,6 @@ func main() {
 
 	router := gin.New()
 	router.Use(gin.Logger())
-	router.LoadHTMLGlob("<html><body>hello</body></html>")
 	router.GET("/", func(context *gin.Context) {
 		context.HTML(http.StatusOK, "", nil)
 	})
