@@ -31,7 +31,7 @@ func main() {
 	router := gin.New()
 	router.Use(gin.Logger())
 	router.GET("/", func(context *gin.Context) {
-		context.JSON(http.StatusOK, "{lol:kek, kek:lol}")
+		context.JSONP(http.StatusOK, "{lol:kek, kek:lol}")
 	})
 
 	router.Run(":" + port)
