@@ -21,10 +21,10 @@ func GetOrganizationsByTags(searchString string) ([]Organization, []error) {
 	var err error
 
 	if len(searchString) > 3 {
-		rows, err = database.MysqlDB.Queryx("select * from tags where name like ? or name like ? ", "%" + searchString + "%", "%" + searchString[:len(searchString) - 2] + "%")
+		rows, err = database.MysqlDB.Queryx("select * from tags where name like ? or name like ? ", "%"+searchString+"%", "%"+searchString[:len(searchString)-2]+"%")
 		//err = database.MysqlDB.Get(&tag, "select * from tags where name like \"%" + searchString + "%\" or name like \"% " + searchString[:len(searchString) - 2] + " %\"")
 	} else {
-		rows, err = database.MysqlDB.Queryx("select * from tags where name like ? ", "%" + searchString + "%")
+		rows, err = database.MysqlDB.Queryx("select * from tags where name like ? ", "%"+searchString+"%")
 	}
 
 	if err != nil {
@@ -48,14 +48,14 @@ func GetOrganizationsByTags(searchString string) ([]Organization, []error) {
 
 	//по тегам ищем места находим все uid подходящих организаций
 	var wherePart []string
-	var uids      []interface{}
+	var uids []interface{}
 
 	for _, tag := range tags {
 		wherePart = append(wherePart, " tag_uid=? ")
 		uids = append(uids, tag.UID.String())
 	}
 
-	rows, err = database.MysqlDB.Queryx("select * from organization_tags where " + strings.Join(wherePart, " or "), uids...)
+	rows, err = database.MysqlDB.Queryx("select * from organization_tags where "+strings.Join(wherePart, " or "), uids...)
 	if err != nil {
 		return nil, append(resultErrors, errors.Wrap(err, "cant select organizations uids"))
 	}
@@ -77,7 +77,7 @@ func GetOrganizationsByTags(searchString string) ([]Organization, []error) {
 		wherePart = append(wherePart, " uid=? ")
 	}
 
-	rows, err = database.MysqlDB.Queryx("select * from organizations where " + strings.Join(wherePart, " or "), orgsUids...)
+	rows, err = database.MysqlDB.Queryx("select * from organizations where "+strings.Join(wherePart, " or "), orgsUids...)
 	if err != nil {
 		return nil, append(resultErrors, errors.Wrap(err, "cant select organizations"))
 	}

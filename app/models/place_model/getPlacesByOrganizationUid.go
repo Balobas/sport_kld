@@ -1,6 +1,5 @@
 package place_model
 
-
 import (
 	"github.com/pkg/errors"
 	"sport_kld/app/models"

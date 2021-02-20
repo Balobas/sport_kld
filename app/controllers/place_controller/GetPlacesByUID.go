@@ -1,9 +1,9 @@
 package place_controller
 
 import (
+	"github.com/pkg/errors"
 	"sport_kld/app/models"
 	"sport_kld/app/models/place_model"
-	"github.com/pkg/errors"
 )
 
 func GetPlaceByUID(uid string) (place_model.Place, error) {
@@ -16,7 +16,7 @@ func GetPlacesByUIDs(uids []string) ([]place_model.Place, []error) {
 	for _, uid := range uids {
 		place, err := GetPlaceByUID(uid)
 		if err != nil {
-			errs = append(errs, errors.Wrap(err, "place with uid: " + uid + "  "))
+			errs = append(errs, errors.Wrap(err, "place with uid: "+uid+"  "))
 		} else {
 			places = append(places, place)
 		}
