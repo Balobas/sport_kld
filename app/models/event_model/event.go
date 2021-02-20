@@ -11,4 +11,12 @@ type Event struct {
 	VisitorsNum   int64      `json:"visitorsNum" db:"visitorsNum"`
 	VisitorsLimit int64      `json:"visitorsLimit" db:"visitorsLimit"`
 	PlaceUID      models.UID `json:"placeUid"`
+	IsOver		  bool		 `json:"isOver" db:"isOver"`
+}
+
+type UserRole struct {
+	UserUID string
+	EventUID string
+	Role string
+	RoleDescription string
 }
