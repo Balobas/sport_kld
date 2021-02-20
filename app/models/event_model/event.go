@@ -20,3 +20,10 @@ type UserRole struct {
 	Role string
 	RoleDescription string
 }
+
+type EventInfoPost struct {
+	UID models.UID
+	EventUID models.UID
+	AuthorUID models.UID
+	Text string
+}
