@@ -1,9 +1,9 @@
 package place_model
 
 import (
-	"sport_kld/database"
-	"sport_kld/app/models"
 	"github.com/pkg/errors"
+	"sport_kld/app/models"
+	"sport_kld/database"
 	"strings"
 )
 
@@ -25,7 +25,7 @@ func GetPlacesByUIDs(uids []models.UID) ([]Place, []error) {
 		conditionPart = append(conditionPart, " uid = ? ")
 	}
 
-	rows, err := database.MysqlDB.Queryx("select * from places where " + strings.Join(conditionPart, " or "), params...)
+	rows, err := database.MysqlDB.Queryx("select * from places where "+strings.Join(conditionPart, " or "), params...)
 	if err != nil {
 		return nil, []error{errors.Wrap(err, "cant select places by uids")}
 	}
@@ -40,8 +40,7 @@ func GetPlacesByUIDs(uids []models.UID) ([]Place, []error) {
 			&place.Address, &place.City,
 			&place.OpeningHours, &place.PostIndex,
 			&place.WebSite, &place.Phones, &place.Email,
-			&place.Facebook, &place.Instagram, &place.Twitter, &place.VK);
-		err != nil {
+			&place.Facebook, &place.Instagram, &place.Twitter, &place.VK); err != nil {
 			resultErrors = append(resultErrors, errors.Wrap(err, "cant scan place"))
 			continue
 		}
@@ -51,5 +50,3 @@ func GetPlacesByUIDs(uids []models.UID) ([]Place, []error) {
 
 	return result, resultErrors
 }
-
-

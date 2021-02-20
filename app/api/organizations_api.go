@@ -62,7 +62,7 @@ func GetOrganizationsByUIDs(w http.ResponseWriter, r *http.Request) {
 
 	resultParams := struct {
 		Organizations []organization_model.Organization `json:"organizations"`
-		Errors []string `json:"errors"`
+		Errors        []string                          `json:"errors"`
 	}{}
 
 	var errs []error
@@ -97,7 +97,7 @@ func GetOrganizationsByFields(w http.ResponseWriter, r *http.Request) {
 
 	resultParams := struct {
 		Organizations []organization_model.Organization `json:"organizations"`
-		Errors []string `json:"errors"`
+		Errors        []string                          `json:"errors"`
 	}{}
 
 	resultParams.Organizations, errs = organization_controller.GetOrganizationsByFields(r.URL.Query()["fields"], searchString)
@@ -130,7 +130,7 @@ func GetPlaceOrganization(w http.ResponseWriter, r *http.Request) {
 
 	resultParams := struct {
 		Organizations []organization_model.Organization `json:"organizations"`
-		Errors []string `json:"errors"`
+		Errors        []string                          `json:"errors"`
 	}{}
 
 	resultParams.Organizations, errs = organization_controller.GetOrganizationByPlaceUID(placeUid)
@@ -164,7 +164,7 @@ func GetOrganizationsByTag(w http.ResponseWriter, r *http.Request) {
 
 	resultParams := struct {
 		Organizations []organization_model.Organization `json:"organizations"`
-		Errors []string `json:"errors"`
+		Errors        []string                          `json:"errors"`
 	}{}
 
 	resultParams.Organizations, errs = organization_controller.GetOrganizationsByTags(searchString)

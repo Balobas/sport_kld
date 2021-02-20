@@ -45,4 +45,3 @@ func TestGetOrganizationsByFields(t *testing.T) {
 		t.Log("select organizations by empty fields array was successful\n", "found ", len(orgs), " organizations")
 	}
 }
-

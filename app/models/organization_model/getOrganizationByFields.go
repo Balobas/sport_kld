@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func GetOrganizationsByFields(fieldsNames []string, searchString string) ([]Organization, []error)  {
+func GetOrganizationsByFields(fieldsNames []string, searchString string) ([]Organization, []error) {
 
 	//ищем организации где содержимое полей похоже на строку поиска
 	var dbConditionPart []string
@@ -16,7 +16,7 @@ func GetOrganizationsByFields(fieldsNames []string, searchString string) ([]Orga
 
 	if len(fieldsNames) == 0 {
 		for i := 0; i < numFields; i++ {
-			dbConditionPart = append(dbConditionPart, " " + reflect.TypeOf(&Organization{}).Elem().Field(i).Tag.Get("db") + " like ? ")
+			dbConditionPart = append(dbConditionPart, " "+reflect.TypeOf(&Organization{}).Elem().Field(i).Tag.Get("db")+" like ? ")
 		}
 	} else {
 		for i := 0; i < numFields; i++ {
@@ -24,7 +24,7 @@ func GetOrganizationsByFields(fieldsNames []string, searchString string) ([]Orga
 
 			for _, field := range fieldsNames {
 				if field == fieldTag {
-					dbConditionPart = append(dbConditionPart, " " + reflect.TypeOf(&Organization{}).Elem().Field(i).Tag.Get("db") + " like ? ")
+					dbConditionPart = append(dbConditionPart, " "+reflect.TypeOf(&Organization{}).Elem().Field(i).Tag.Get("db")+" like ? ")
 				}
 			}
 		}
@@ -34,7 +34,7 @@ func GetOrganizationsByFields(fieldsNames []string, searchString string) ([]Orga
 
 	var params []interface{}
 	for i := 0; i < len(dbConditionPart); i++ {
-		params = append(params, "%" + searchString + "%")
+		params = append(params, "%"+searchString+"%")
 	}
 
 	rows, err := database.MysqlDB.Queryx(query, params...)

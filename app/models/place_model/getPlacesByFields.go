@@ -1,13 +1,13 @@
 package place_model
 
 import (
-	"sport_kld/database"
 	"github.com/pkg/errors"
 	"reflect"
+	"sport_kld/database"
 	"strings"
 )
 
-func GetPlacesByFields(fieldsNames []string, searchString string) ([]Place, []error)  {
+func GetPlacesByFields(fieldsNames []string, searchString string) ([]Place, []error) {
 
 	//ищем места где содержимое полей похоже на строку поиска
 	var dbConditionPart []string
@@ -16,7 +16,7 @@ func GetPlacesByFields(fieldsNames []string, searchString string) ([]Place, []er
 
 	if len(fieldsNames) == 0 {
 		for i := 0; i < numFields; i++ {
-			dbConditionPart = append(dbConditionPart, " " + reflect.TypeOf(&Place{}).Elem().Field(i).Tag.Get("db") + " like ? ")
+			dbConditionPart = append(dbConditionPart, " "+reflect.TypeOf(&Place{}).Elem().Field(i).Tag.Get("db")+" like ? ")
 		}
 	} else {
 		for i := 0; i < numFields; i++ {
@@ -24,7 +24,7 @@ func GetPlacesByFields(fieldsNames []string, searchString string) ([]Place, []er
 
 			for _, field := range fieldsNames {
 				if field == fieldTag {
-					dbConditionPart = append(dbConditionPart, " " + reflect.TypeOf(&Place{}).Elem().Field(i).Tag.Get("db") + " like ? ")
+					dbConditionPart = append(dbConditionPart, " "+reflect.TypeOf(&Place{}).Elem().Field(i).Tag.Get("db")+" like ? ")
 				}
 			}
 		}
@@ -34,7 +34,7 @@ func GetPlacesByFields(fieldsNames []string, searchString string) ([]Place, []er
 
 	var params []interface{}
 	for i := 0; i < len(dbConditionPart); i++ {
-		params = append(params, "%" + searchString + "%")
+		params = append(params, "%"+searchString+"%")
 	}
 
 	rows, err := database.MysqlDB.Queryx(query, params...)
@@ -52,8 +52,7 @@ func GetPlacesByFields(fieldsNames []string, searchString string) ([]Place, []er
 			&place.Address, &place.City,
 			&place.OpeningHours, &place.PostIndex,
 			&place.WebSite, &place.Phones, &place.Email,
-			&place.Facebook, &place.Instagram, &place.Twitter, &place.VK);
-		err != nil {
+			&place.Facebook, &place.Instagram, &place.Twitter, &place.VK); err != nil {
 			resultErrors = append(resultErrors, errors.Wrap(err, "cant scan place"))
 			continue
 		}

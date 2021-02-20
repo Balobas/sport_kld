@@ -1,15 +1,15 @@
 /*
 Данный пакет содержит методы обработчики запросов
 
- */
+*/
 package api
 
 import (
-	"sport_kld/app/controllers/place_controller"
-	"sport_kld/app/models/place_model"
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"sport_kld/app/controllers/place_controller"
+	"sport_kld/app/models/place_model"
 	"sport_kld/app/utils"
 )
 
@@ -63,7 +63,7 @@ func GetPlacesByUIDs(w http.ResponseWriter, r *http.Request) {
 
 	resultParams := struct {
 		Places []place_model.Place `json:"places"`
-		Errors []string `json:"errors"`
+		Errors []string            `json:"errors"`
 	}{}
 
 	var errs []error
@@ -95,8 +95,6 @@ func GetPlacesByFields(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
-
 	if r.URL.Query().Get("search") == "" {
 		if _, err := w.Write([]byte("not found 'search' key in get query")); err != nil {
 			fmt.Println("cant write bytes")
@@ -109,8 +107,8 @@ func GetPlacesByFields(w http.ResponseWriter, r *http.Request) {
 	var errs []error
 
 	resultParams := struct {
-		Places []place_model.Place  `json:"places"`
-		Errors []string 			`json:"errors"`
+		Places []place_model.Place `json:"places"`
+		Errors []string            `json:"errors"`
 	}{}
 
 	resultParams.Places, errs = place_controller.GetPlacesByFields(r.URL.Query()["fields"], searchString)
@@ -153,8 +151,8 @@ func GetOrganizationPlaces(w http.ResponseWriter, r *http.Request) {
 	var errs []error
 
 	resultParams := struct {
-		Places []place_model.Place  `json:"places"`
-		Errors []string 			`json:"errors"`
+		Places []place_model.Place `json:"places"`
+		Errors []string            `json:"errors"`
 	}{}
 
 	resultParams.Places, errs = place_controller.GetPlacesByOrganizationUID(orgUid)
@@ -197,8 +195,8 @@ func GetPlacesByTag(w http.ResponseWriter, r *http.Request) {
 	var errs []error
 
 	resultParams := struct {
-		Places []place_model.Place  `json:"places"`
-		Errors []string 			`json:"errors"`
+		Places []place_model.Place `json:"places"`
+		Errors []string            `json:"errors"`
 	}{}
 
 	resultParams.Places, errs = place_controller.GetPlacesByTags(searchString)
