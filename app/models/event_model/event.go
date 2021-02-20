@@ -11,19 +11,19 @@ type Event struct {
 	VisitorsNum   int64      `json:"visitorsNum" db:"visitorsNum"`
 	VisitorsLimit int64      `json:"visitorsLimit" db:"visitorsLimit"`
 	PlaceUID      models.UID `json:"placeUid"`
-	IsOver		  bool		 `json:"isOver" db:"isOver"`
+	IsOver        bool       `json:"isOver" db:"isOver"`
 }
 
 type UserRole struct {
-	UserUID string
-	EventUID string
-	Role string
-	RoleDescription string
+	UserUID         string `json:"userUid" db:"userUid"`
+	EventUID        string `json:"eventUid" db:"eventUid"`
+	Role            string `json:"role" db:"role"`
+	RoleDescription string `json:"roleDescription" db:"roleDescription"`
 }
 
 type EventInfoPost struct {
-	UID models.UID
-	EventUID models.UID
-	AuthorUID models.UID
-	Text string
+	UID       models.UID `json:"uid" db:"uid"`
+	EventUID  models.UID `json:"eventUid" db:"eventUid"`
+	AuthorUID models.UID `json:"authorUid" db:"authorUid"`
+	Text      string     `json:"text" db:"text"`
 }
