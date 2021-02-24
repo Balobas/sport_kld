@@ -13,12 +13,13 @@ type Event struct {
 	PlaceUID      models.UID `json:"placeUid" db:"placeUid"`
 	CreatorUID    models.UID `json:"creatorUid" db:"creatorUid"`
 	IsPrivate	  bool       `json:"isPrivate" db:"isPrivate"`
+	EventPassword string     `json:"eventPassword" db:"eventPassword"`
 	IsOver        bool       `json:"isOver" db:"isOver"`
 }
 
 type EventUserRole struct {
-	UserUID         string `json:"userUid" db:"userUid"`
-	EventUID        string `json:"eventUid" db:"eventUid"`
+	UserUID         models.UID `json:"userUid" db:"userUid"`
+	EventUID        models.UID `json:"eventUid" db:"eventUid"`
 	Role            string `json:"role" db:"role"`
 	RoleDescription string `json:"roleDescription" db:"roleDescription"`
 }
@@ -28,4 +29,6 @@ type EventInfoPost struct {
 	EventUID  models.UID `json:"eventUid" db:"eventUid"`
 	AuthorUID models.UID `json:"authorUid" db:"authorUid"`
 	Text      string     `json:"text" db:"text"`
+	CreatedTime string	 `json:"createdTime" db:"createdTime"`
+	UpdatedTime string	 `json:"updatedTime" db:"updatedTime"`
 }
