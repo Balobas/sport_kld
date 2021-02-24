@@ -5,7 +5,7 @@ import (
 	"sport_kld/app/models"
 )
 
-func ChangePrivateStatus(eventUid models.UID) error {
+func ChangeEventPrivateStatus(eventUid models.UID) error {
 	event, err := GetEventByUid(eventUid)
 	if err != nil {
 		return err
