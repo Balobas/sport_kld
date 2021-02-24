@@ -1,8 +1,10 @@
 package event_model
 
 import (
+	"github.com/pkg/errors"
 	"github.com/satori/go.uuid"
 	"sport_kld/app/models"
+	"sport_kld/database"
 )
 
 func CreateEvent(event Event) (models.UID, error) {
@@ -29,5 +31,8 @@ func CreateEvent(event Event) (models.UID, error) {
 		return "", err
 	}
 
+	if _, err := database.MysqlDB.Exec("INSERT INTO event_users(event_uid, user_uid) VALUES (?, ?)", event.UID, event.CreatorUID); err != nil {
+		return "", errors.New("cant join to event")
+	}
 	return event.UID, nil
 }
