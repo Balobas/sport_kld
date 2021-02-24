@@ -2,10 +2,8 @@ package event_model
 
 import (
 	"errors"
-	"fmt"
 	"github.com/satori/go.uuid"
 	"sport_kld/app/models"
-	"sport_kld/database"
 )
 
 func CreateEvent(event Event) (models.UID, error) {
@@ -32,18 +30,27 @@ func CreateEvent(event Event) (models.UID, error) {
 	if len(event.CreatorUID) == 0 {
 		return "", errors.New("empty event creator uid field")
 	}
+	if event.IsPrivate && len(event.EventPassword) == 0 {
+		return "", errors.New("if you create private event, you should enter password")
+	}
 
 	event.VisitorsNum = 0
 	event.IsOver = false
 
-	result, err := database.MysqlDB.NamedExec("INSERT INTO events(uid, name, description, dates, time, visitorsNum, visitorsLimit, placeUid, creatorUid, isPrivate, isOver) VALUES (:uid, :name, :description, :dates, :time, :visitorsNum, :visitorsLimit, :placeUid, :creatorUid, :isPrivate, :isOver)", &event)
-	if err != nil {
-		return "", errors.New("cant create event")
+	if err := putEvent(event); err != nil {
+		return "", err
 	}
 
-	// Заменить на логер
-	a, _ := result.RowsAffected()
-	fmt.Println("inserted ", a, " rows")
+	creatorRole := EventUserRole{
+		UserUID:         event.CreatorUID,
+		EventUID:        event.UID,
+		Role:            "Организатор",
+		RoleDescription: "Создатель события",
+	}
+
+	if err := putEventUserRole(creatorRole); err != nil {
+		return "", err
+	}
 
 	return event.UID, nil
 }
