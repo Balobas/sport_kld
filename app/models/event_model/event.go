@@ -14,7 +14,7 @@ type Event struct {
 	IsOver        bool       `json:"isOver" db:"isOver"`
 }
 
-type UserRole struct {
+type EventUserRole struct {
 	UserUID         string `json:"userUid" db:"userUid"`
 	EventUID        string `json:"eventUid" db:"eventUid"`
 	Role            string `json:"role" db:"role"`
