@@ -10,7 +10,9 @@ type Event struct {
 	Time          string     `json:"time" db:"time"`
 	VisitorsNum   int64      `json:"visitorsNum" db:"visitorsNum"`
 	VisitorsLimit int64      `json:"visitorsLimit" db:"visitorsLimit"`
-	PlaceUID      models.UID `json:"placeUid"`
+	PlaceUID      models.UID `json:"placeUid" db:"placeUid"`
+	CreatorUID    models.UID `json:"creatorUid" db:"creatorUid"`
+	IsPrivate	  bool       `json:"isPrivate" db:"isPrivate"`
 	IsOver        bool       `json:"isOver" db:"isOver"`
 }
 
