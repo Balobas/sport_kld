@@ -12,7 +12,7 @@ func TestCreateEvent(t *testing.T) {
 		VisitorsNum:   0,
 		VisitorsLimit: 25,
 		PlaceUID:      "8912829312312312",
-		CreatorUID:    "123123123123",
+		CreatorUID:    "ttt",
 		IsPrivate:     false,
 		EventPassword: "",
 		IsOver:        false,
@@ -26,7 +26,7 @@ func TestCreateEvent(t *testing.T) {
 	t.Log(uid)
 
 	event = Event{
-		UID:           "123",
+		UID:           "ttt",
 		Name:          "",
 		Description:   "test event description",
 		Dates:         "25.04.2021",
