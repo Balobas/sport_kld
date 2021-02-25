@@ -28,24 +28,6 @@ func JoinEvent(user user_model.User, eventUid models.UID, password string) error
 		return errors.New("user has already join to event")
 	}
 
-	//res, err := database.MysqlDB.Queryx("SELECT * FROM event_users WHERE event_uid=? AND user_uid=?", eventUid, user.UID)
-	//if err == nil {
-	//	//var m map[string]interface{}
-	//
-	//	fmt.Println(res)
-	//	//if err := res.MapScan(m); err != nil {
-	//	//	return errors.WithStack(err)
-	//	//}
-	//	//if len(m) > 0 {
-	//	//	return errors.New("user has already join to event")
-	//	//}
-	//
-	//} else {
-	//	if err.Error() != "sql: no rows in result set" {
-	//		return errors.New("select error")
-	//	}
-	//}
-
 	event, err := GetEventByUid(eventUid)
 	if err != nil {
 		return errors.WithStack(err)
