@@ -1,7 +1,7 @@
 package event_model
 
 import (
-	"errors"
+	"github.com/pkg/errors"
 	"sport_kld/app/models"
 	"sport_kld/app/models/user_model"
 	"sport_kld/database"
@@ -15,18 +15,22 @@ func JoinEvent(user user_model.User, eventUid models.UID, password string) error
 		return errors.New("event uid is empty")
 	}
 
-	_, err := database.MysqlDB.Queryx("SELECT * FROM event_users WHERE event_uid=? AND user_uid=?", eventUid, user.UID)
-	if err == nil {
-		return errors.New("user has already join to event")
-	} else {
+	var t struct {
+		EventUid string `db:"event_uid"`
+		UserUid string `db:"user_uid"`
+	}
+
+	if err := database.MysqlDB.Get(&t, "SELECT * FROM event_users WHERE event_uid=? AND user_uid=?", eventUid, user.UID); err != nil {
 		if err.Error() != "sql: no rows in result set" {
 			return errors.New("select error")
 		}
+	} else {
+		return errors.New("user has already join to event")
 	}
 
 	event, err := GetEventByUid(eventUid)
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	if event.IsOver {
@@ -46,7 +50,7 @@ func JoinEvent(user user_model.User, eventUid models.UID, password string) error
 	event.VisitorsNum += 1
 
 	if err := putEvent(event); err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	if _, err := database.MysqlDB.Exec("INSERT INTO event_users(event_uid, user_uid) VALUES (?, ?)", eventUid, user.UID); err != nil {
