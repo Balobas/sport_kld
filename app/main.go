@@ -2,17 +2,15 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
-	"os"
 	"sport_kld/app/api"
 )
 
 func main() {
-	port := os.Getenv("PORT")
-	if port == "" {
-		log.Fatal("$PORT must be set")
-	}
+	//port := os.Getenv("PORT")
+	//if port == "" {
+	//	log.Fatal("$PORT must be set")
+	//}
 
 	router := gin.New()
 	router.Use(gin.Logger())
@@ -33,5 +31,11 @@ func main() {
 	router.GET("/place_organization", gin.WrapF(api.GetPlaceOrganization))
 	router.GET("/organizations_by_tag", gin.WrapF(api.GetOrganizationsByTag))
 
-	router.Run(":" + port)
+	router.GET("/event", gin.WrapF(api.GetEventByUid))
+	router.GET("/events_in_place", gin.WrapF(api.GetEventsByPlace))
+	router.GET("/event_user_role", gin.WrapF(api.GetEventUserRole))
+	router.GET("/event_info_post", gin.WrapF(api.GetEventInfoPost))
+	router.GET("/event_info_posts", gin.WrapF(api.GetEventInfoPosts))
+
+	router.Run(":" + "8080")
 }
