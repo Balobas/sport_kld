@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -23,4 +24,18 @@ func WriteToResponseWriter(w http.ResponseWriter, message []byte) error {
 		return err
 	}
 	return nil
+}
+
+func WriteResult(w http.ResponseWriter, result interface{}) {
+	b, err := json.Marshal(result)
+	if err != nil {
+		if _, err := w.Write([]byte("cant marshal json")); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	if _, err := w.Write(b); err != nil {
+		fmt.Println("cant write bytes")
+	}
 }
