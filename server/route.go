@@ -25,7 +25,7 @@ func InitRoutes(router *gin.Engine) {
 	router.GET("/event_info_posts", gin.WrapF(api.GetEventInfoPosts))
 
 
-	router.POST("/create_event", gin.WrapF(api.CreateEvent))
+	router.POST("/event", gin.WrapF(api.CreateEvent))
 	router.POST("/join_event", gin.WrapF(api.JoinEvent))
 	router.POST("/update_event", gin.WrapF(api.UpdateEvent))
 	router.POST("/change_event_privacy", gin.WrapF(api.ChangeEventPrivateStatus))
