@@ -3,7 +3,7 @@ package event_model
 import "testing"
 
 func TestPutEventUserRole(t *testing.T) {
-	if err := putEventUserRole(EventUserRole{
+	if err := putEventUser(EventUser{
 		UserUID:         "user",
 		EventUID:        "event",
 		Role:            "asd",

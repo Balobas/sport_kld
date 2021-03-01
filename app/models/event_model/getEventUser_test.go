@@ -3,7 +3,7 @@ package event_model
 import "testing"
 
 func TestGetEventUserRoleByUid(t *testing.T) {
-	role, err := GetEventUserRoleByUid("123", "1234")
+	role, err := GetEventUserByUid("123", "1234")
 	if err != nil {
 		t.Log(err)
 		t.FailNow()

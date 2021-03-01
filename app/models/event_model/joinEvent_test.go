@@ -7,18 +7,18 @@ import (
 
 func TestJoinEvent(t *testing.T) {
 	user := user_model.User{
-		UID:      "1299",
+		UID:      "12998",
 		Name:     "user",
 		Login:    "u",
 		Password: "p",
 	}
 
-	if err := JoinEvent(user, "5f460829-76b7-11eb-8b56-0c9d9244", ""); err != nil {
+	if err := JoinEvent(user.UID, "123", ""); err != nil {
 		t.Log(err)
 		t.FailNow()
 	}
 
-	if err := JoinEvent(user, "1491b99d-7778-11eb-8979-0c9d92446328", ""); err == nil {
+	if err := JoinEvent(user.UID, "1491b99d-7778-11eb-8979-0c9d9244", ""); err == nil {
 		t.Log("must return error")
 		t.FailNow()
 	}
