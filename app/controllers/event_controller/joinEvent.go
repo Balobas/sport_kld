@@ -5,6 +5,6 @@ import (
 	"sport_kld/app/models/event_model"
 )
 
-func JoinEvent(userUid models.UID, eventUid, password string) error {
-	return event_model.JoinEvent(userUid, models.UID(eventUid), password)
+func JoinEvent(userUid, eventUid, password string) error {
+	return event_model.JoinEvent(models.UID(userUid), models.UID(eventUid), password)
 }
