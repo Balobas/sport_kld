@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"sport_kld/app/controllers/event_controller"
@@ -9,19 +10,95 @@ import (
 )
 
 func CreateEvent(w http.ResponseWriter, r *http.Request) {
+	if utils.HandleHTTPMethod(w, http.MethodPost, r.Method) != nil {
+		return
+	}
 
+	decoder := json.NewDecoder(r.Body)
+	var event event_model.Event
+
+	if err := decoder.Decode(&event); err != nil {
+		if _, err := w.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	uid, err := event_controller.CreateEvent(event)
+	if err != nil {
+		if _, err := w.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	utils.WriteResult(w, uid)
 }
 
 func JoinEvent(w http.ResponseWriter, r *http.Request) {
+	if utils.HandleHTTPMethod(w, http.MethodPost, r.Method) != nil {
+		return
+	}
 
+	decoder := json.NewDecoder(r.Body)
+	var params struct{
+		UserUid string `json:"userUid"`
+		EventUid string `json:"eventUid"`
+		Password string `json:"password"`
+	}
+
+	if err := decoder.Decode(&params); err != nil {
+		if _, err := w.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	err := event_controller.JoinEvent(params.UserUid, params.EventUid, params.Password)
+	utils.WriteResult(w, err)
 }
 
 func UpdateEvent(w http.ResponseWriter, r *http.Request) {
+	if utils.HandleHTTPMethod(w, http.MethodPost, r.Method) != nil {
+		return
+	}
 
+	decoder := json.NewDecoder(r.Body)
+	var params struct {
+		Event event_model.Event `json:"event"`
+		ExecutorUid string `json:"executorUid"`
+	}
+
+	if err := decoder.Decode(&params); err != nil {
+		if _, err := w.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	err := event_controller.UpdateEvent(params.Event, params.ExecutorUid)
+	utils.WriteResult(w, err)
 }
 
 func DeleteEvent(w http.ResponseWriter, r *http.Request) {
+	if utils.HandleHTTPMethod(w, http.MethodDelete, r.Method) != nil {
+		return
+	}
 
+	decoder := json.NewDecoder(r.Body)
+	var params struct {
+		EventUid string `json:"eventUid"`
+	}
+
+	if err := decoder.Decode(&params); err != nil {
+		if _, err := w.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	err := event_controller.DeleteEvent(params.EventUid)
+	utils.WriteResult(w, err)
 }
 
 func GetEventByUid(w http.ResponseWriter, r *http.Request) {
@@ -88,15 +165,69 @@ func GetEventsByPlace(w http.ResponseWriter, r *http.Request) {
 }
 
 func ChangeEventPrivateStatus(w http.ResponseWriter, r *http.Request) {
+	if utils.HandleHTTPMethod(w, http.MethodPost, r.Method) != nil {
+		return
+	}
 
+	decoder := json.NewDecoder(r.Body)
+	var params struct{
+		EventUid string `json:"eventUid"`
+	}
+
+	if err := decoder.Decode(&params); err != nil {
+		if _, err := w.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	err := event_controller.ChangeEventPrivateStatus(params.EventUid)
+	utils.WriteResult(w, err)
 }
 
 func ChangeUserEventRole(w http.ResponseWriter, r *http.Request) {
+	if utils.HandleHTTPMethod(w, http.MethodPost, r.Method) != nil {
+		return
+	}
 
+	decoder := json.NewDecoder(r.Body)
+	var params struct{
+		Role event_model.EventUserRole `json:"role"`
+		ExecutorUid string `json:"executorUid"`
+	}
+
+	if err := decoder.Decode(&params); err != nil {
+		if _, err := w.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	err := event_controller.ChangeUserEventRole(params.Role, params.ExecutorUid)
+	utils.WriteResult(w, err)
 }
 
 func DeleteUserFromEvent(w http.ResponseWriter, r *http.Request) {
+	if utils.HandleHTTPMethod(w, http.MethodDelete, r.Method) != nil {
+		return
+	}
 
+	decoder := json.NewDecoder(r.Body)
+	var params struct {
+		UserUid  string `json:"userUid"`
+		EventUid string `json:"eventUid"`
+		ExecutorUid string `json:"executorUid"`
+	}
+
+	if err := decoder.Decode(&params); err != nil {
+		if _, err := w.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	err := event_controller.DeleteUserFromEvent(params.UserUid, params.EventUid, params.ExecutorUid)
+	utils.WriteResult(w, err)
 }
 
 func GetEventUserRole(w http.ResponseWriter, r *http.Request) {
@@ -130,7 +261,28 @@ func GetEventUserRole(w http.ResponseWriter, r *http.Request) {
 }
 
 func PutEventInfoPost(w http.ResponseWriter, r *http.Request) {
+	if utils.HandleHTTPMethod(w, http.MethodPost, r.Method) != nil {
+		return
+	}
 
+	decoder := json.NewDecoder(r.Body)
+	var post event_model.EventInfoPost
+	if err := decoder.Decode(&post); err != nil {
+		if _, err := w.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	uid, err := event_controller.PutEventInfoPost(post)
+	if err != nil {
+		if _, err := w.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	utils.WriteResult(w, uid)
 }
 
 func GetEventInfoPost(w http.ResponseWriter, r *http.Request) {
@@ -179,14 +331,12 @@ func GetEventInfoPosts(w http.ResponseWriter, r *http.Request) {
 	}
 
 	uid := r.URL.Query()["event_uid"][0]
-
 	resultParams := struct {
 		EventInfoPosts        []event_model.EventInfoPost               `json:"posts"`
 		Errors        		  []string                          		`json:"errors"`
 	}{}
 
 	var errs []error
-
 	resultParams.EventInfoPosts, errs = event_controller.GetEventInfoPosts(uid)
 
 	for _, err := range errs {
