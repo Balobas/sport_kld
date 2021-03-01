@@ -6,10 +6,10 @@ import (
 	"sport_kld/database"
 )
 
-func GetEventUserRoleByUid(eventUid, userUid models.UID) (EventUserRole, error) {
-	var role EventUserRole
+func GetEventUserByUid(eventUid, userUid models.UID) (EventUser, error) {
+	var role EventUser
 	if err := database.MysqlDB.Get(&role, "select * from event_user_roles where userUid=? and eventUid=?", userUid, eventUid); err != nil {
-		return EventUserRole{}, errors.Wrap(err, "cant get user role")
+		return EventUser{}, errors.Wrap(err, "cant get user role")
 	}
 	return role, nil
 }
