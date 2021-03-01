@@ -7,5 +7,6 @@ func GetUserByLogin(login string) (User, error) {
 	if err := database.MysqlDB.Get(&user, "select * from users where login=?", login); err != nil {
 		return User{}, err
 	}
+	user.Password = ""
 	return user, nil
 }
