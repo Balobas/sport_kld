@@ -1,4 +1,4 @@
-package server
+package auth
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 
 type Claims struct {
 	jwt.StandardClaims
-	Username string `json:"username"`
+	UserUid string
 }
 
 func ParseToken(accessToken string, signingKey []byte) (string, error) {
@@ -24,7 +24,7 @@ func ParseToken(accessToken string, signingKey []byte) (string, error) {
 	}
 
 	if claims, ok := token.Claims.(*Claims); ok && token.Valid {
-		return claims.Username, nil
+		return claims.UserUid, nil
 	}
 
 	return "", errors.New("invalid auth token")
