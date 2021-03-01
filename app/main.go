@@ -37,5 +37,17 @@ func main() {
 	router.GET("/event_info_post", gin.WrapF(api.GetEventInfoPost))
 	router.GET("/event_info_posts", gin.WrapF(api.GetEventInfoPosts))
 
+
+	router.POST("/create_event", gin.WrapF(api.CreateEvent))
+	router.POST("/join_event", gin.WrapF(api.JoinEvent))
+	router.POST("/update_event", gin.WrapF(api.UpdateEvent))
+	router.POST("/change_event_privacy", gin.WrapF(api.ChangeEventPrivateStatus))
+	router.POST("/change_user_event_role", gin.WrapF(api.ChangeUserEventRole))
+	router.POST("/event_info_post", gin.WrapF(api.PutEventInfoPost))
+
+
+	router.DELETE("/event", gin.WrapF(api.DeleteEvent))
+	router.DELETE("/user_from_event", gin.WrapF(api.DeleteUserFromEvent))
+
 	router.Run(":" + "8080")
 }
