@@ -1,7 +1,6 @@
 package api
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"sport_kld/app/controllers/organization_controller"
@@ -35,18 +34,7 @@ func GetOrganizationByUID(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	b, err := json.Marshal(org)
-	if err != nil {
-		res := []byte(err.Error())
-		if _, err := w.Write(res); err != nil {
-			fmt.Println("cant write bytes")
-		}
-		return
-	}
-
-	if _, err := w.Write(b); err != nil {
-		fmt.Println("cant write bytes")
-	}
+	utils.WriteResult(w, org)
 }
 
 func GetOrganizationsByUIDs(w http.ResponseWriter, r *http.Request) {
@@ -73,12 +61,7 @@ func GetOrganizationsByUIDs(w http.ResponseWriter, r *http.Request) {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
 	}
 
-	b, err := json.Marshal(resultParams)
-	if err != nil {
-		_ = utils.WriteToResponseWriter(w, []byte("cant marshal json"))
-		return
-	}
-	_ = utils.WriteToResponseWriter(w, b)
+	utils.WriteResult(w, resultParams)
 }
 
 func GetOrganizationsByFields(w http.ResponseWriter, r *http.Request) {
@@ -106,12 +89,7 @@ func GetOrganizationsByFields(w http.ResponseWriter, r *http.Request) {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
 	}
 
-	b, err := json.Marshal(resultParams)
-	if err != nil {
-		_ = utils.WriteToResponseWriter(w, []byte("cant marshal json"))
-		return
-	}
-	_ = utils.WriteToResponseWriter(w, b)
+	utils.WriteResult(w, resultParams)
 }
 
 func GetPlaceOrganization(w http.ResponseWriter, r *http.Request) {
@@ -139,13 +117,7 @@ func GetPlaceOrganization(w http.ResponseWriter, r *http.Request) {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
 	}
 
-	b, err := json.Marshal(resultParams)
-	if err != nil {
-		_ = utils.WriteToResponseWriter(w, []byte("cant marshal json"))
-		return
-	}
-
-	_ = utils.WriteToResponseWriter(w, b)
+	utils.WriteResult(w, resultParams)
 }
 
 func GetOrganizationsByTag(w http.ResponseWriter, r *http.Request) {
@@ -173,10 +145,5 @@ func GetOrganizationsByTag(w http.ResponseWriter, r *http.Request) {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
 	}
 
-	b, err := json.Marshal(resultParams)
-	if err != nil {
-		_ = utils.WriteToResponseWriter(w, []byte("cant marshal json"))
-		return
-	}
-	_ = utils.WriteToResponseWriter(w, b)
+	utils.WriteResult(w, resultParams)
 }
