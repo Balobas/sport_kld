@@ -3,24 +3,17 @@ package event_model
 import (
 	"github.com/pkg/errors"
 	"sport_kld/app/models"
-	"sport_kld/app/models/user_model"
-	"sport_kld/database"
 )
 
-func JoinEvent(user user_model.User, eventUid models.UID, password string) error {
-	if len(user.UID) == 0 {
+func JoinEvent(userUid , eventUid models.UID, password string) error {
+	if len(userUid) == 0 {
 		return errors.New("user uid is empty")
 	}
 	if len(eventUid) == 0 {
 		return errors.New("event uid is empty")
 	}
 
-	var t struct {
-		EventUid string `db:"event_uid"`
-		UserUid string `db:"user_uid"`
-	}
-
-	if err := database.MysqlDB.Get(&t, "SELECT * FROM event_users WHERE event_uid=? AND user_uid=?", eventUid, user.UID); err != nil {
+	if _, err := GetEventUserByUid(eventUid, userUid); err != nil {
 		if err.Error() != "sql: no rows in result set" {
 			return errors.New("select error")
 		}
@@ -53,16 +46,16 @@ func JoinEvent(user user_model.User, eventUid models.UID, password string) error
 		return errors.WithStack(err)
 	}
 
-	if _, err := database.MysqlDB.Exec("INSERT INTO event_users(event_uid, user_uid) VALUES (?, ?)", eventUid, user.UID); err != nil {
-		return errors.New("cant join to event")
-	}
+	//if _, err := database.MysqlDB.Exec("INSERT INTO event_users(event_uid, user_uid) VALUES (?, ?)", eventUid, userUid); err != nil {
+	//	return errors.New("cant join to event")
+	//}
 
-	role := EventUserRole{
-		UserUID:         user.UID,
+	role := EventUser{
+		UserUID:         userUid,
 		EventUID:        eventUid,
 		Role:            "Посетитель",
 		RoleDescription: "Стандартная роль",
 	}
 
-	return putEventUserRole(role)
+	return putEventUser(role)
 }

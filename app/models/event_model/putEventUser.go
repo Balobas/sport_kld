@@ -6,8 +6,8 @@ import (
 	"sport_kld/database"
 )
 
-func putEventUserRole(role EventUserRole) error {
-	_, err := GetEventUserRoleByUid(role.EventUID, role.UserUID)
+func putEventUser(role EventUser) error {
+	_, err := GetEventUserByUid(role.EventUID, role.UserUID)
 	if err == nil {
 		if result, err := database.MysqlDB.NamedExec("update event_user_roles set role = :role, roleDescription = :roleDescription where userUid= :userUid and eventUid = :eventUid", &role); err != nil {
 			return errors.New("cant update role")
