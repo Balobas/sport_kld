@@ -1,4 +1,4 @@
-package server
+package auth
 
 import (
 	"github.com/gin-gonic/gin"
@@ -25,9 +25,12 @@ func CheckToken(ctx *gin.Context) {
 		return
 	}
 
-	if _, err := ParseToken(headerParts[1], settings.SIGNING_KEY); err != nil {
+	userUid, err := ParseToken(headerParts[1], settings.SIGNING_KEY)
+	if err != nil {
 		status := http.StatusBadRequest
 		ctx.AbortWithStatus(status)
 		return
 	}
+
+	ctx.Set("executorUid", userUid)
 }
