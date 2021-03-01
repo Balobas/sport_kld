@@ -20,7 +20,7 @@ type Event struct {
 	IsOver        bool       `json:"isOver" db:"isOver"`
 }
 
-type EventUserRole struct {
+type EventUser struct {
 	UserUID         models.UID `json:"userUid" db:"userUid"`
 	EventUID        models.UID `json:"eventUid" db:"eventUid"`
 	Role            string `json:"role" db:"role"`

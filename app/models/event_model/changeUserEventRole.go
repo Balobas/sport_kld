@@ -5,8 +5,8 @@ import (
 	"sport_kld/app/models"
 )
 
-func ChangeUserRole(role EventUserRole, executorUid models.UID) error {
-	oldRole, err := GetEventUserRoleByUid(role.EventUID, role.UserUID)
+func ChangeUserRole(role EventUser, executorUid models.UID) error {
+	oldEventUser, err := GetEventUserByUid(role.EventUID, role.UserUID)
 	if err != nil {
 		return err
 	}
@@ -24,8 +24,8 @@ func ChangeUserRole(role EventUserRole, executorUid models.UID) error {
 		return errors.New("event is over")
 	}
 
-	oldRole.Role = role.Role
-	oldRole.RoleDescription = role.RoleDescription
+	oldEventUser.Role = role.Role
+	oldEventUser.RoleDescription = role.RoleDescription
 
-	return putEventUserRole(oldRole)
+	return putEventUser(oldEventUser)
 }

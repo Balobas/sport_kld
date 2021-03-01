@@ -5,6 +5,6 @@ import (
 	"sport_kld/app/models/event_model"
 )
 
-func GetEventUserRole(eventUid, userUid string) (event_model.EventUserRole, error) {
-	return event_model.GetEventUserRoleByUid(models.UID(eventUid), models.UID(userUid))
+func GetEventUserRole(eventUid, userUid string) (event_model.EventUser, error) {
+	return event_model.GetEventUserByUid(models.UID(eventUid), models.UID(userUid))
 }
