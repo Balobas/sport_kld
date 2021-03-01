@@ -3,8 +3,8 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"sport_kld/app/settings"
 	"strings"
-	"github.com/zhashkevych/auth/pkg/parser"
 )
 
 func CheckToken(ctx *gin.Context) {
@@ -25,7 +25,7 @@ func CheckToken(ctx *gin.Context) {
 		return
 	}
 
-	if _, err := parser.ParseToken(headerParts[1], SIGNING_KEY); err != nil {
+	if _, err := ParseToken(headerParts[1], settings.SIGNING_KEY); err != nil {
 		status := http.StatusBadRequest
 		ctx.AbortWithStatus(status)
 		return
