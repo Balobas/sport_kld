@@ -192,7 +192,7 @@ func ChangeUserEventRole(w http.ResponseWriter, r *http.Request) {
 
 	decoder := json.NewDecoder(r.Body)
 	var params struct{
-		Role event_model.EventUserRole `json:"role"`
+		EventUser event_model.EventUser `json:"eventUser"`
 		ExecutorUid string `json:"executorUid"`
 	}
 
@@ -203,7 +203,7 @@ func ChangeUserEventRole(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := event_controller.ChangeUserEventRole(params.Role, params.ExecutorUid)
+	err := event_controller.ChangeUserEventRole(params.EventUser, params.ExecutorUid)
 	utils.WriteResult(w, err)
 }
 
@@ -226,7 +226,7 @@ func DeleteUserFromEvent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := event_controller.DeleteUserFromEvent(params.UserUid, params.EventUid, params.ExecutorUid)
+	err := event_controller.DeleteEventUser(params.UserUid, params.EventUid, params.ExecutorUid)
 	utils.WriteResult(w, err)
 }
 
