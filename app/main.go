@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/go-session/gin-session"
 	"net/http"
-	"sport_kld/app/api"
+	"sport_kld/server"
 )
 
 func main() {
@@ -14,40 +16,40 @@ func main() {
 
 	router := gin.New()
 	router.Use(gin.Logger())
+	router.Use(ginsession.New())
 
 	router.GET("/", func(context *gin.Context) {
 		context.JSONP(http.StatusOK, "")
 	})
 
-	router.GET("/place", gin.WrapF(api.GetPlaceByUID))
-	router.GET("/places", gin.WrapF(api.GetPlacesByUIDs))
-	router.GET("/places_by_fields", gin.WrapF(api.GetPlacesByFields))
-	router.GET("/organization_places", gin.WrapF(api.GetOrganizationPlaces))
-	router.GET("/places_by_tag", gin.WrapF(api.GetPlacesByTag))
+	router.GET("/test_session_set", func(context *gin.Context) {
+		store := ginsession.FromContext(context)
 
-	router.GET("/organization", gin.WrapF(api.GetOrganizationByUID))
-	router.GET("/organizations", gin.WrapF(api.GetOrganizationsByUIDs))
-	router.GET("/organizations_by_fields", gin.WrapF(api.GetOrganizationsByFields))
-	router.GET("/place_organization", gin.WrapF(api.GetPlaceOrganization))
-	router.GET("/organizations_by_tag", gin.WrapF(api.GetOrganizationsByTag))
+		store.Set("kk",  store.SessionID())
+		if err := store.Save(); err != nil {
+			fmt.Println("err")
+			context.AbortWithError(500, err)
+			return
+		}
+		context.Redirect(302, "/test_session_get")
+	})
+	router.GET("/test_session_get", func(context *gin.Context) {
+		store := ginsession.FromContext(context)
+		if store == nil {
+			fmt.Println("nil")
+		}
 
-	router.GET("/event", gin.WrapF(api.GetEventByUid))
-	router.GET("/events_in_place", gin.WrapF(api.GetEventsByPlace))
-	router.GET("/event_user_role", gin.WrapF(api.GetEventUserRole))
-	router.GET("/event_info_post", gin.WrapF(api.GetEventInfoPost))
-	router.GET("/event_info_posts", gin.WrapF(api.GetEventInfoPosts))
+		val, ok := store.Get("kk")
+		if !ok {
+			context.AbortWithStatus(404)
+			return
+		}
+
+		context.String(http.StatusOK, "%s", val)
+	})
 
 
-	router.POST("/create_event", gin.WrapF(api.CreateEvent))
-	router.POST("/join_event", gin.WrapF(api.JoinEvent))
-	router.POST("/update_event", gin.WrapF(api.UpdateEvent))
-	router.POST("/change_event_privacy", gin.WrapF(api.ChangeEventPrivateStatus))
-	router.POST("/change_user_event_role", gin.WrapF(api.ChangeUserEventRole))
-	router.POST("/event_info_post", gin.WrapF(api.PutEventInfoPost))
-
-
-	router.DELETE("/event", gin.WrapF(api.DeleteEvent))
-	router.DELETE("/user_from_event", gin.WrapF(api.DeleteUserFromEvent))
+	server.InitRoutes(router)
 
 	router.Run(":" + "8080")
 }
