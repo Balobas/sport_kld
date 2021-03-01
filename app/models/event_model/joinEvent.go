@@ -3,6 +3,7 @@ package event_model
 import (
 	"github.com/pkg/errors"
 	"sport_kld/app/models"
+	"strings"
 )
 
 func JoinEvent(userUid , eventUid models.UID, password string) error {
@@ -14,8 +15,8 @@ func JoinEvent(userUid , eventUid models.UID, password string) error {
 	}
 
 	if _, err := GetEventUserByUid(eventUid, userUid); err != nil {
-		if err.Error() != "sql: no rows in result set" {
-			return errors.New("select error")
+		if !strings.Contains(err.Error(), "sql: no rows in result set") {
+			return errors.Wrap(err, "select error")
 		}
 	} else {
 		return errors.New("user has already join to event")
