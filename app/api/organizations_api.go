@@ -2,49 +2,50 @@ package api
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"sport_kld/app/controllers/organization_controller"
 	"sport_kld/app/models/organization_model"
 	"sport_kld/app/utils"
 )
 
-func GetOrganizationByUID(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
+func GetOrganizationByUID(ctx *gin.Context) {
+	if ctx.Request.Method != http.MethodGet {
 		res := []byte("wrong http method. access denied")
-		if _, err := w.Write(res); err != nil {
+		if _, err := ctx.Writer.Write(res); err != nil {
 			fmt.Println("cant write bytes")
 		}
 		return
 	}
 
-	if r.URL.Query().Get("uid") == "" {
-		if _, err := w.Write([]byte("not found uid key in get query")); err != nil {
+	if ctx.Request.URL.Query().Get("uid") == "" {
+		if _, err := ctx.Writer.Write([]byte("not found uid key in get query")); err != nil {
 			fmt.Println("cant write bytes")
 		}
 		return
 	}
 
-	uid := r.URL.Query()["uid"][0]
+	uid := ctx.Request.URL.Query()["uid"][0]
 
 	org, err := organization_controller.GetOrganizationByUID(uid)
 	if err != nil {
 		res := []byte(err.Error())
-		if _, err := w.Write(res); err != nil {
+		if _, err := ctx.Writer.Write(res); err != nil {
 			fmt.Println("cant write bytes")
 		}
 		return
 	}
-	utils.WriteResult(w, org)
+	utils.WriteResult(ctx.Writer, org)
 }
 
-func GetOrganizationsByUIDs(w http.ResponseWriter, r *http.Request) {
-	if utils.HandleHTTPMethod(w, http.MethodGet, r.Method) != nil {
+func GetOrganizationsByUIDs(ctx *gin.Context) {
+	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 
-	uids := r.URL.Query()["uid"]
+	uids := ctx.Request.URL.Query()["uid"]
 	if len(uids) == 0 {
-		_ = utils.WriteToResponseWriter(w, []byte("not found uids in get query"))
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte("not found uids in get query"))
 		return
 	}
 
@@ -61,20 +62,20 @@ func GetOrganizationsByUIDs(w http.ResponseWriter, r *http.Request) {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
 	}
 
-	utils.WriteResult(w, resultParams)
+	utils.WriteResult(ctx.Writer, resultParams)
 }
 
-func GetOrganizationsByFields(w http.ResponseWriter, r *http.Request) {
-	if utils.HandleHTTPMethod(w, http.MethodGet, r.Method) != nil {
+func GetOrganizationsByFields(ctx *gin.Context) {
+	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 
-	if r.URL.Query().Get("search") == "" {
-		_ = utils.WriteToResponseWriter(w, []byte("not found 'search' key in get query"))
+	if ctx.Request.URL.Query().Get("search") == "" {
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte("not found 'search' key in get query"))
 		return
 	}
 
-	searchString := r.URL.Query().Get("search")
+	searchString := ctx.Request.URL.Query().Get("search")
 
 	var errs []error
 
@@ -83,26 +84,26 @@ func GetOrganizationsByFields(w http.ResponseWriter, r *http.Request) {
 		Errors        []string                          `json:"errors"`
 	}{}
 
-	resultParams.Organizations, errs = organization_controller.GetOrganizationsByFields(r.URL.Query()["fields"], searchString)
+	resultParams.Organizations, errs = organization_controller.GetOrganizationsByFields(ctx.Request.URL.Query()["fields"], searchString)
 
 	for _, err := range errs {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
 	}
 
-	utils.WriteResult(w, resultParams)
+	utils.WriteResult(ctx.Writer, resultParams)
 }
 
-func GetPlaceOrganization(w http.ResponseWriter, r *http.Request) {
-	if utils.HandleHTTPMethod(w, http.MethodGet, r.Method) != nil {
+func GetPlaceOrganization(ctx *gin.Context) {
+	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 
-	if r.URL.Query().Get("place_uid") == "" {
-		_ = utils.WriteToResponseWriter(w, []byte("not found 'organization_uid' key in get query"))
+	if ctx.Request.URL.Query().Get("place_uid") == "" {
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte("not found 'organization_uid' key in get query"))
 		return
 	}
 
-	placeUid := r.URL.Query().Get("place_uid")
+	placeUid := ctx.Request.URL.Query().Get("place_uid")
 
 	var errs []error
 
@@ -117,20 +118,20 @@ func GetPlaceOrganization(w http.ResponseWriter, r *http.Request) {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
 	}
 
-	utils.WriteResult(w, resultParams)
+	utils.WriteResult(ctx.Writer, resultParams)
 }
 
-func GetOrganizationsByTag(w http.ResponseWriter, r *http.Request) {
-	if utils.HandleHTTPMethod(w, http.MethodGet, r.Method) != nil {
+func GetOrganizationsByTag(ctx *gin.Context) {
+	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 
-	if r.URL.Query().Get("search") == "" {
-		_ = utils.WriteToResponseWriter(w, []byte("not found 'search' key in get query"))
+	if ctx.Request.URL.Query().Get("search") == "" {
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte("not found 'search' key in get query"))
 		return
 	}
 
-	searchString := r.URL.Query().Get("search")
+	searchString := ctx.Request.URL.Query().Get("search")
 
 	var errs []error
 
@@ -145,5 +146,5 @@ func GetOrganizationsByTag(w http.ResponseWriter, r *http.Request) {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
 	}
 
-	utils.WriteResult(w, resultParams)
+	utils.WriteResult(ctx.Writer, resultParams)
 }
