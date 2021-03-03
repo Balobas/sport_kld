@@ -35,5 +35,6 @@ func InitRoutes(router *gin.Engine) {
 
 	router.DELETE("/event", gin.WrapF(api.DeleteEvent))
 	router.DELETE("/user_from_event", gin.WrapF(api.DeleteUserFromEvent))
+	router.DELETE("/event_info_post", gin.WrapF(api.DeleteEventInfoPost))
 
 }
