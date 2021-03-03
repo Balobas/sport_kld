@@ -3,6 +3,7 @@ package user_model
 import (
 	"github.com/pkg/errors"
 	"sport_kld/app/models"
+	"sport_kld/database"
 	"strings"
 )
 
@@ -14,9 +15,9 @@ func UpdateUser(user User, executorUid models.UID) error {
 		return errors.Wrap(err, "invalid user")
 	}
 
-	oldUser, err := GetUserByUid(user.UID)
-	if err != nil {
-		return errors.Wrap(err, "cant update user")
+	var oldUser User
+	if err := database.MysqlDB.Get(&oldUser, "select * from users where uid=?", user.UID); err != nil {
+		return errors.Wrap(err, "cant get user")
 	}
 
 	if user.Login != oldUser.Login {
@@ -25,7 +26,6 @@ func UpdateUser(user User, executorUid models.UID) error {
 		} else if !strings.Contains(err.Error(), "sql: no rows in result set") {
 			return err
 		}
-
 		oldUser.Login = user.Login
 	}
 

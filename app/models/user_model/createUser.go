@@ -1,6 +1,8 @@
 package user_model
 
 import (
+	"crypto/md5"
+	"fmt"
 	"github.com/pkg/errors"
 	uuid "github.com/satori/go.uuid"
 	"sport_kld/app/models"
@@ -24,6 +26,10 @@ func CreateUser(user User) (models.UID, string, error) {
 	// генерация uid
 	user.UID = models.UID(uuid.NewV1().String())
 
+	h := md5.New()
+	h.Write([]byte(user.Password))
+	h.Write([]byte("hashsalt"))
+	user.Password = fmt.Sprintf("%x", h.Sum(nil))
 
 	if err := putUser(user); err != nil {
 		return "", "", errors.Wrap(err, "cant create user")
@@ -36,5 +42,5 @@ func CreateUser(user User) (models.UID, string, error) {
 	}
 
 	//добавление
-	return user.UID, token, putUser(user)
+	return user.UID, token, nil
 }
