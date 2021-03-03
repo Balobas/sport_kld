@@ -5,11 +5,16 @@ import (
 	"sport_kld/app/models"
 )
 
-func ChangeEventPrivateStatus(eventUid models.UID) error {
+func ChangeEventPrivateStatus(eventUid, executorUid models.UID) error {
 	event, err := GetEventByUid(eventUid)
 	if err != nil {
 		return err
 	}
+
+	if event.CreatorUID != executorUid {
+		return errors.New("permission denied")
+	}
+
 	if event.IsOver {
 		return errors.New("event is over")
 	}
