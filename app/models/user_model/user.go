@@ -27,4 +27,5 @@ func (user *User) validate() error {
 	if user.Age < 0 {
 		return errors.New("negative age")
 	}
+	return nil
 }
