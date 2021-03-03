@@ -24,6 +24,8 @@ func InitRoutes(router *gin.Engine) {
 	router.GET("/event_info_post", api.GetEventInfoPost)
 	router.GET("/event_info_posts", api.GetEventInfoPosts)
 
+	router.GET("/user", api.GetUser)
+	router.GET("/user_by_login", api.GetUserByLogin)
 
 	router.POST("/event", api.CreateEvent)
 	router.POST("/join_event", api.JoinEvent)
@@ -32,6 +34,9 @@ func InitRoutes(router *gin.Engine) {
 	router.POST("/change_user_event_role", api.ChangeUserEventRole)
 	router.POST("/event_info_post", api.PutEventInfoPost)
 
+	router.POST("/user", api.CreateUser)
+	router.POST("/update_user", api.UpdateUser)
+	router.POST("/sign_in", api.SignIn)
 
 	router.DELETE("/event", api.DeleteEvent)
 	router.DELETE("/user_from_event", api.DeleteUserFromEvent)

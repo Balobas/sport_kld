@@ -30,5 +30,13 @@ var OnlyWithAuth = map[string] bool {
 
 	http.MethodDelete + "/event" : true,
 	http.MethodDelete + "/user_from_event" : true,
+
+	http.MethodGet + "/user" : false,
+	http.MethodGet + "/user_by_login" : false,
+
+	http.MethodPost + "/user" : false,
+	http.MethodPost + "/update_user" : true,
+	http.MethodPost + "/sign_in" : false,
+
 }
 
