@@ -7,7 +7,14 @@ import (
 	"strings"
 )
 
-func CheckToken(ctx *gin.Context) {
+func AuthorizationMiddleware(ctx *gin.Context) {
+
+	checkPair := pair{ctx.Request.Method, ctx.Request.URL.Path}
+	needAuth := OnlyWithAuth[checkPair]
+	if !needAuth {
+		return
+	}
+
 	authHeader := ctx.GetHeader("Authorization")
 	if authHeader == "" {
 		ctx.AbortWithStatus(http.StatusUnauthorized)
