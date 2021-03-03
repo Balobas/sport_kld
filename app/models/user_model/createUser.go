@@ -24,6 +24,7 @@ func CreateUser(user User) (models.UID, string, error) {
 	// генерация uid
 	user.UID = models.UID(uuid.NewV1().String())
 
+
 	if err := putUser(user); err != nil {
 		return "", "", errors.Wrap(err, "cant create user")
 	}
