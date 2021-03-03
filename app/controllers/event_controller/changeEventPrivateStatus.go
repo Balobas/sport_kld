@@ -5,6 +5,6 @@ import (
 	"sport_kld/app/models/event_model"
 )
 
-func ChangeEventPrivateStatus(eventUid string) error {
-	return event_model.ChangeEventPrivateStatus(models.UID(eventUid))
+func ChangeEventPrivateStatus(eventUid, executorUid string) error {
+	return event_model.ChangeEventPrivateStatus(models.UID(eventUid), models.UID(executorUid))
 }

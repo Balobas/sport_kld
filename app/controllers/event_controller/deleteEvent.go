@@ -5,6 +5,6 @@ import (
 	"sport_kld/app/models/event_model"
 )
 
-func DeleteEvent(eventUid string) error {
-	return event_model.DeleteEvent(models.UID(eventUid))
+func DeleteEvent(eventUid, executorUid string) error {
+	return event_model.DeleteEvent(models.UID(eventUid), models.UID(executorUid))
 }
