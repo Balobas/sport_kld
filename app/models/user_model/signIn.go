@@ -12,7 +12,7 @@ type Claims struct {
 }
 
 func (user *User) SignIn() (string, error) {
-	oldUser, err := GetUserByLoginAndPassword(user.Login, user.Password)
+	oldUser, err := getUserByLoginAndPassword(user.Login, user.Password)
 	if err != nil {
 		return "", err
 	}
