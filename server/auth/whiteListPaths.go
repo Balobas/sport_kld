@@ -18,8 +18,8 @@ var OnlyWithAuth = map[string] bool {
 	http.MethodGet + "/event" : false,
 	http.MethodGet + "/events_in_place" : false,
 	http.MethodGet + "/event_user_role" : true,
-	http.MethodGet + "/event_info_post" : false,
-	http.MethodGet + "/event_info_posts" : false,
+	http.MethodGet + "/event_info_post" : true,
+	http.MethodGet + "/event_info_posts" : true,
 
 	http.MethodPost + "/event" : true,
 	http.MethodPost + "/join_event" : true,
