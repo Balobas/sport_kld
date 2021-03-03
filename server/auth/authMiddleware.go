@@ -35,6 +35,8 @@ func AuthorizationMiddleware(ctx *gin.Context) {
 		return
 	}
 
+	// TODO: в случае, если у токена истек срок годности, продлить его при условии что действует refresh token
+
 	userUid, err := ParseToken(headerParts[1], settings.SIGNING_KEY)
 	if err != nil {
 		status := http.StatusBadRequest
