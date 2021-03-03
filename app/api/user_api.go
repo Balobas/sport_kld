@@ -102,3 +102,25 @@ func UpdateUser(ctx *gin.Context) {
 	err := user_controller.UpdateUser(user, executorUid.(string))
 	utils.WriteResult(ctx.Writer, err)
 }
+
+func SignIn(ctx *gin.Context) {
+	if utils.HandleHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
+		return
+	}
+
+	decoder := json.NewDecoder(ctx.Request.Body)
+	var user user_model.User
+	if err := decoder.Decode(&user); err != nil {
+		if _, err := ctx.Writer.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	token, err := user_controller.SignIn(user)
+	if err != nil {
+		utils.WriteResult(ctx.Writer, err.Error())
+		return
+	}
+	utils.WriteResult(ctx.Writer, token)
+}
