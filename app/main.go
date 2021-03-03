@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"sport_kld/server"
-	"sport_kld/server/auth"
 )
 
 func main() {
@@ -15,7 +14,7 @@ func main() {
 
 	router := gin.New()
 	router.Use(gin.Logger())
-	router.Use(auth.AuthorizationMiddleware)
+	//router.Use(auth.AuthorizationMiddleware)
 
 	router.GET("/", func(context *gin.Context) {
 		context.JSONP(http.StatusOK, "")

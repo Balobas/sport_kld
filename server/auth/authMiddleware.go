@@ -11,6 +11,7 @@ import (
 func AuthorizationMiddleware(ctx *gin.Context) {
 	key := ctx.Request.Method + ctx.Request.URL.Path
 	needAuth, ok := OnlyWithAuth[key]
+	fmt.Println("request from", ctx.Request.Host, ctx.Request.RemoteAddr)
 
 	if !needAuth {
 		fmt.Println("not need auth", ok)
