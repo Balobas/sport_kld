@@ -98,7 +98,12 @@ func DeleteEvent(ctx *gin.Context) {
 		return
 	}
 
-	err := event_controller.DeleteEvent(params.EventUid)
+	executorUid, ok := ctx.Get("executorUid")
+	if !ok {
+		utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
+		return
+	}
+	err := event_controller.DeleteEvent(params.EventUid, executorUid.(string))
 	utils.WriteResult(ctx.Writer, err)
 }
 
@@ -182,7 +187,13 @@ func ChangeEventPrivateStatus(ctx *gin.Context) {
 		return
 	}
 
-	err := event_controller.ChangeEventPrivateStatus(params.EventUid)
+	executorUid, ok := ctx.Get("executorUid")
+	if !ok {
+		utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
+		return
+	}
+
+	err := event_controller.ChangeEventPrivateStatus(params.EventUid, executorUid.(string))
 	utils.WriteResult(ctx.Writer, err)
 }
 
@@ -363,7 +374,11 @@ func DeleteEventInfoPost(ctx *gin.Context) {
 		}
 		return
 	}
-
-	err := event_controller.DeleteEvent(params.PostUid)
+	executorUid, ok := ctx.Get("executorUid")
+	if !ok {
+		utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
+		return
+	}
+	err := event_controller.DeleteEvent(params.PostUid, executorUid.(string))
 	utils.WriteResult(ctx.Writer, err)
 }
