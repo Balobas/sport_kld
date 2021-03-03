@@ -6,50 +6,51 @@ package api
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"sport_kld/app/controllers/place_controller"
 	"sport_kld/app/models/place_model"
 	"sport_kld/app/utils"
 )
 
-func GetPlaceByUID(w http.ResponseWriter, r *http.Request) {
-	if utils.HandleHTTPMethod(w, http.MethodGet, r.Method) != nil {
+func GetPlaceByUID(ctx *gin.Context) {
+	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 
-	if r.URL.Query().Get("uid") == "" {
-		if utils.WriteToResponseWriter(w, []byte("not found uid key in get query")) != nil {
+	if ctx.Request.URL.Query().Get("uid") == "" {
+		if utils.WriteToResponseWriter(ctx.Writer, []byte("not found uid key in get query")) != nil {
 			return
 		}
 		return
 	}
 
-	uid := r.URL.Query()["uid"][0]
+	uid := ctx.Request.URL.Query()["uid"][0]
 
 	place, err := place_controller.GetPlaceByUID(uid)
 	if err != nil {
-		_ = utils.WriteToResponseWriter(w, []byte(err.Error()))
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte(err.Error()))
 		return
 	}
 
-	utils.WriteResult(w, place)
+	utils.WriteResult(ctx.Writer, place)
 }
 
-func GetPlacesByUIDs(w http.ResponseWriter, r *http.Request) {
-	if utils.HandleHTTPMethod(w, http.MethodGet, r.Method) != nil {
+func GetPlacesByUIDs(ctx *gin.Context) {
+	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 
-	if r.URL.Query().Get("uid") == "" {
-		if _, err := w.Write([]byte("not found uid key in get query")); err != nil {
+	if ctx.Request.URL.Query().Get("uid") == "" {
+		if _, err := ctx.Writer.Write([]byte("not found uid key in get query")); err != nil {
 			fmt.Println("cant write bytes")
 		}
 		return
 	}
 
-	uids := r.URL.Query()["uid"]
+	uids := ctx.Request.URL.Query()["uid"]
 	if len(uids) == 0 {
-		if _, err := w.Write([]byte("not found uids in get query")); err != nil {
+		if _, err := ctx.Writer.Write([]byte("not found uids in get query")); err != nil {
 			fmt.Println("cant write bytes")
 		}
 		return
@@ -68,25 +69,25 @@ func GetPlacesByUIDs(w http.ResponseWriter, r *http.Request) {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
 	}
 
-	utils.WriteResult(w, resultParams)
+	utils.WriteResult(ctx.Writer, resultParams)
 }
 
-func GetPlacesByFields(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		if utils.WriteToResponseWriter(w, []byte("wrong http method. access denied")) != nil {
+func GetPlacesByFields(ctx *gin.Context) {
+	if ctx.Request.Method != http.MethodGet {
+		if utils.WriteToResponseWriter(ctx.Writer, []byte("wrong http method. access denied")) != nil {
 			return
 		}
 		return
 	}
 
-	if r.URL.Query().Get("search") == "" {
-		if _, err := w.Write([]byte("not found 'search' key in get query")); err != nil {
+	if ctx.Request.URL.Query().Get("search") == "" {
+		if _, err := ctx.Writer.Write([]byte("not found 'search' key in get query")); err != nil {
 			fmt.Println("cant write bytes")
 		}
 		return
 	}
 
-	searchString := r.URL.Query().Get("search")
+	searchString := ctx.Request.URL.Query().Get("search")
 
 	var errs []error
 
@@ -95,32 +96,32 @@ func GetPlacesByFields(w http.ResponseWriter, r *http.Request) {
 		Errors []string            `json:"errors"`
 	}{}
 
-	resultParams.Places, errs = place_controller.GetPlacesByFields(r.URL.Query()["fields"], searchString)
+	resultParams.Places, errs = place_controller.GetPlacesByFields(ctx.Request.URL.Query()["fields"], searchString)
 
 	for _, err := range errs {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
 	}
 
-	utils.WriteResult(w, resultParams)
+	utils.WriteResult(ctx.Writer, resultParams)
 }
 
-func GetOrganizationPlaces(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
+func GetOrganizationPlaces(ctx *gin.Context) {
+	if ctx.Request.Method != http.MethodGet {
 		res := []byte("wrong http method. access denied")
-		if _, err := w.Write(res); err != nil {
+		if _, err := ctx.Writer.Write(res); err != nil {
 			fmt.Println("cant write bytes")
 		}
 		return
 	}
 
-	if r.URL.Query().Get("organization_uid") == "" {
-		if _, err := w.Write([]byte("not found 'organization_uid' key in get query")); err != nil {
+	if ctx.Request.URL.Query().Get("organization_uid") == "" {
+		if _, err := ctx.Writer.Write([]byte("not found 'organization_uid' key in get query")); err != nil {
 			fmt.Println("cant write bytes")
 		}
 		return
 	}
 
-	orgUid := r.URL.Query().Get("organization_uid")
+	orgUid := ctx.Request.URL.Query().Get("organization_uid")
 
 	var errs []error
 
@@ -135,26 +136,26 @@ func GetOrganizationPlaces(w http.ResponseWriter, r *http.Request) {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
 	}
 
-	utils.WriteResult(w, resultParams)
+	utils.WriteResult(ctx.Writer, resultParams)
 }
 
-func GetPlacesByTag(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
+func GetPlacesByTag(ctx *gin.Context) {
+	if ctx.Request.Method != http.MethodGet {
 		res := []byte("wrong http method. access denied")
-		if _, err := w.Write(res); err != nil {
+		if _, err := ctx.Writer.Write(res); err != nil {
 			fmt.Println("cant write bytes")
 		}
 		return
 	}
 
-	if r.URL.Query().Get("search") == "" {
-		if _, err := w.Write([]byte("not found 'search' key in get query")); err != nil {
+	if ctx.Request.URL.Query().Get("search") == "" {
+		if _, err := ctx.Writer.Write([]byte("not found 'search' key in get query")); err != nil {
 			fmt.Println("cant write bytes")
 		}
 		return
 	}
 
-	searchString := r.URL.Query().Get("search")
+	searchString := ctx.Request.URL.Query().Get("search")
 
 	var errs []error
 
@@ -169,5 +170,5 @@ func GetPlacesByTag(w http.ResponseWriter, r *http.Request) {
 		resultParams.Errors = append(resultParams.Errors, err.Error())
 	}
 
-	utils.WriteResult(w, resultParams)
+	utils.WriteResult(ctx.Writer, resultParams)
 }
