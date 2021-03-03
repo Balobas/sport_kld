@@ -2,10 +2,14 @@ package user_model
 
 import (
 	"github.com/pkg/errors"
+	"sport_kld/app/models"
 	"strings"
 )
 
-func UpdateUser(user User) error {
+func UpdateUser(user User, executorUid models.UID) error {
+	if user.UID != executorUid {
+		return errors.New("Permission denied")
+	}
 	if err := user.validate(); err != nil {
 		return errors.Wrap(err, "invalid user")
 	}
