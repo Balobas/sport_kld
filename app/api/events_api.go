@@ -345,3 +345,24 @@ func GetEventInfoPosts(w http.ResponseWriter, r *http.Request) {
 
 	utils.WriteResult(w, resultParams)
 }
+
+func DeleteEventInfoPost(w http.ResponseWriter, r *http.Request) {
+	if utils.HandleHTTPMethod(w, http.MethodDelete, r.Method) != nil {
+		return
+	}
+
+	decoder := json.NewDecoder(r.Body)
+	var params struct {
+		PostUid string `json:"uid"`
+	}
+
+	if err := decoder.Decode(&params); err != nil {
+		if _, err := w.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	err := event_controller.DeleteEvent(params.PostUid)
+	utils.WriteResult(w, err)
+}

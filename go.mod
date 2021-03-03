@@ -11,5 +11,5 @@ require (
 	github.com/jmoiron/sqlx v1.3.1
 	github.com/pkg/errors v0.9.1
 	github.com/satori/go.uuid v1.2.0
-	github.com/zhashkevych/auth v0.0.0-20200331153139-c37e02c6aad8 // indirect
+	github.com/zhashkevych/auth v0.0.0-20200331153139-c37e02c6aad8
 )
