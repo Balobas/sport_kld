@@ -2,38 +2,33 @@ package auth
 
 import "net/http"
 
-type pair struct {
-	path string
-	method string
-}
+var OnlyWithAuth = map[string] bool {
+	http.MethodGet + "/place" : false,
+	http.MethodGet + "/places" : false,
+	http.MethodGet + "/places_by_fields" : false,
+	http.MethodGet + "/organization_places" : false,
+	http.MethodGet + "/places_by_tag" : false,
 
-var OnlyWithAuth = map[pair] bool {
-	{"/place", http.MethodGet}: false,
-	{"/places", http.MethodGet}: false,
-	{"/places_by_fields", http.MethodGet}: false,
-	{"/organization_places", http.MethodGet}: false,
-	{"/places_by_tag", http.MethodGet}: false,
+	http.MethodGet + "/organization" : false,
+	http.MethodGet + "/organizations": false,
+	http.MethodGet + "/organizations_by_fields" : false,
+	http.MethodGet + "/place_organization" : false,
+	http.MethodGet + "/organizations_by_tag" : false,
 
-	{"/organization", http.MethodGet}: false,
-	{"/organizations", http.MethodGet}: false,
-	{"/organizations_by_fields", http.MethodGet}: false,
-	{"/place_organization", http.MethodGet}: false,
-	{"/organizations_by_tag", http.MethodGet}: false,
+	http.MethodGet + "/event" : false,
+	http.MethodGet + "/events_in_place" : false,
+	http.MethodGet + "/event_user_role" : true,
+	http.MethodGet + "/event_info_post" : false,
+	http.MethodGet + "/event_info_posts" : false,
 
-	{"/event", http.MethodGet}: false,
-	{"/events_in_place", http.MethodGet}: false,
-	{"/event_user_role", http.MethodGet}: true,
-	{"/event_info_post", http.MethodGet}: false,
-	{"/event_info_posts", http.MethodGet}: false,
+	http.MethodPost + "/event" : true,
+	http.MethodPost + "/join_event" : true,
+	http.MethodPost + "/update_event" : true,
+	http.MethodPost + "/change_event_privacy" : true,
+	http.MethodPost + "/change_user_event_role" : true,
+	http.MethodPost + "/event_info_post" : true,
 
-	{"/event", http.MethodPost}: true,
-	{"/join_event", http.MethodPost}: true,
-	{"/update_event", http.MethodPost}: true,
-	{"/change_event_privacy", http.MethodPost}: true,
-	{"/change_user_event_role", http.MethodPost}: true,
-	{"/event_info_post", http.MethodPost}: true,
-
-	{"/event", http.MethodDelete}: true,
-	{"/user_from_event", http.MethodDelete}: true,
+	http.MethodDelete + "/event" : true,
+	http.MethodDelete + "/user_from_event" : true,
 }
 

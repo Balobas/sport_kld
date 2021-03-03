@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"sport_kld/app/settings"
@@ -8,10 +9,11 @@ import (
 )
 
 func AuthorizationMiddleware(ctx *gin.Context) {
+	key := ctx.Request.Method + ctx.Request.URL.Path
+	needAuth, ok := OnlyWithAuth[key]
 
-	checkPair := pair{ctx.Request.Method, ctx.Request.URL.Path}
-	needAuth := OnlyWithAuth[checkPair]
 	if !needAuth {
+		fmt.Println("not need auth", ok)
 		return
 	}
 
