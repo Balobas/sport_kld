@@ -29,7 +29,7 @@ func CreateUser(user User) (models.UID, string, error) {
 	}
 
 	//генерация jwt токена
-	token, err := user.SignIn()
+	token, err := user.GenerateNewToken()
 	if err != nil {
 		return "", "", err
 	}
