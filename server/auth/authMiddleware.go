@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"sport_kld/app/settings"
 	"strings"
 )
 
@@ -35,14 +34,11 @@ func AuthorizationMiddleware(ctx *gin.Context) {
 		return
 	}
 
-	// TODO: в случае, если у токена истек срок годности, продлить его при условии что действует refresh token
-
-	userUid, err := ParseToken(headerParts[1], settings.SIGNING_KEY)
+	authUid, userUid, err := VerifyAuth(headerParts[1])
 	if err != nil {
-		status := http.StatusBadRequest
-		ctx.AbortWithStatus(status)
-		return
+		_ = ctx.AbortWithError(http.StatusUnauthorized, err)
 	}
 
 	ctx.Set("executorUid", userUid)
+	ctx.Set("authUid", authUid)
 }
