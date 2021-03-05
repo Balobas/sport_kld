@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"sport_kld/server"
+	rt "sport_kld/server/router"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 		context.JSONP(http.StatusOK, "")
 	})
 
-	server.InitRoutes(router)
+	rt.InitRoutes(router)
 
 	router.Run(":" + "8080")
 }
