@@ -5,6 +5,6 @@ import (
 	"sport_kld/app/models/user_model"
 )
 
-func CreateUser(user user_model.User) (models.UID, string, error) {
+func CreateUser(user user_model.User) (models.UID, error) {
 	return user_model.CreateUser(user)
 }
