@@ -1,8 +1,9 @@
-package server
+package router
 
 import (
 	"github.com/gin-gonic/gin"
 	"sport_kld/app/api"
+	serverAuthApi "sport_kld/server/auth/api"
 )
 
 func InitRoutes(router *gin.Engine) {
@@ -36,7 +37,10 @@ func InitRoutes(router *gin.Engine) {
 
 	router.POST("/user", api.CreateUser)
 	router.POST("/update_user", api.UpdateUser)
-	router.POST("/login")
+
+	router.POST("/login", serverAuthApi.Login)
+	router.POST("/logout", serverAuthApi.Logout)
+	router.POST("/refresh", serverAuthApi.Refresh)
 
 
 	router.DELETE("/event", api.DeleteEvent)
