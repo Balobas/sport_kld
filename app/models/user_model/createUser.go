@@ -9,18 +9,18 @@ import (
 	"strings"
 )
 
-func CreateUser(user User) (models.UID, string, error) {
+func CreateUser(user User) (models.UID, error) {
 	//валидация
 	if err := user.validate(); err != nil {
-		return "", "", errors.Wrap(err, "cant create user")
+		return "", errors.Wrap(err, "cant create user")
 	}
 
 	// проверка занят ли логин
 	_, err := GetUserByLogin(user.Login)
 	if err == nil {
-		return "", "", errors.New("login exist")
+		return "", errors.New("login exist")
 	} else if !strings.Contains(err.Error(), "sql: no rows in result set") {
-		return "", "", err
+		return "", err
 	}
 
 	// генерация uid
@@ -32,15 +32,9 @@ func CreateUser(user User) (models.UID, string, error) {
 	user.Password = fmt.Sprintf("%x", h.Sum(nil))
 
 	if err := putUser(user); err != nil {
-		return "", "", errors.Wrap(err, "cant create user")
-	}
-
-	//генерация jwt токена
-	token, err := user.GenerateNewToken()
-	if err != nil {
-		return "", "", err
+		return "", errors.Wrap(err, "cant create user")
 	}
 
 	//добавление
-	return user.UID, token, nil
+	return user.UID, nil
 }
