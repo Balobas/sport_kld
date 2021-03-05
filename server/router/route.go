@@ -36,7 +36,8 @@ func InitRoutes(router *gin.Engine) {
 
 	router.POST("/user", api.CreateUser)
 	router.POST("/update_user", api.UpdateUser)
-	router.POST("/sign_in", api.SignIn)
+	router.POST("/login")
+
 
 	router.DELETE("/event", api.DeleteEvent)
 	router.DELETE("/user_from_event", api.DeleteUserFromEvent)

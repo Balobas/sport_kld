@@ -1,4 +1,4 @@
-package auth
+package router
 
 import "net/http"
 
@@ -36,7 +36,9 @@ var OnlyWithAuth = map[string] bool {
 
 	http.MethodPost + "/user" : false,
 	http.MethodPost + "/update_user" : true,
-	http.MethodPost + "/sign_in" : false,
 
+	http.MethodPost + "/login" : false,
+	http.MethodPost + "/logout" : true,
+	http.MethodPost + "/refresh" : false,
 }
 
