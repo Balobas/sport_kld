@@ -31,10 +31,10 @@ func CreateUser(user User) (models.UID, error) {
 	h.Write([]byte("hashsalt"))
 	user.Password = fmt.Sprintf("%x", h.Sum(nil))
 
+	// Добавление
 	if err := putUser(user); err != nil {
 		return "", errors.Wrap(err, "cant create user")
 	}
 
-	//добавление
 	return user.UID, nil
 }
