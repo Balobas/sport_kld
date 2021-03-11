@@ -19,6 +19,9 @@ func main() {
 	router.GET("/", func(context *gin.Context) {
 		context.JSONP(http.StatusOK, "")
 	})
+	router.GET("/favicon.ico", func(context *gin.Context) {
+		context.JSONP(http.StatusOK, "")
+	})
 
 	rt.InitRoutes(router)
 
