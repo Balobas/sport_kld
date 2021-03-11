@@ -10,13 +10,13 @@ type TokenDetails struct {
 }
 
 type Access struct {
-	AccessUid string `json:"accessUid"`
-	UserUid string `json:"userUid"`
-	Expires int64 `json:"expires"`
+	AccessUid string `json:"accessUid" db:"accessUid"`
+	UserUid string `json:"userUid" db:"userUid"`
+	Expires int64 `json:"expires" db:"expires"`
 }
 
 type Refresh struct {
-	RefreshUid string `json:"refreshUid"`
-	UserUid string `json:"userUid"`
-	Expires int64 `json:"expires"`
+	RefreshUid string `json:"refreshUid" db:"refreshUid"`
+	UserUid string `json:"userUid" db:"userUid"`
+	Expires int64 `json:"expires" db:"expires"`
 }

@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"fmt"
 	"sport_kld/server/auth/token"
 	"testing"
 )
@@ -13,5 +14,8 @@ func TestCreateAuth(t *testing.T) {
 		t.FailNow()
 	}
 
+	fmt.Println(td.AccessToken)
+	fmt.Println("refresh:")
+	fmt.Println(td.RefreshToken)
 	t.Log("passed")
 }
