@@ -6,14 +6,14 @@ import (
 )
 
 func TestGetByUID(t *testing.T) {
-	testUid := models.UID("35cc8cde5f0111eb960b0c9d92446328")
+	testUid := models.UID("35cc17ff5f0111eb9eef0c9d92446328")
 
 	place, err := GetByUID(testUid)
 	if err != nil {
 		t.Log("FAIL: cant get place by uid")
 		t.Fail()
 	} else {
-		t.Log(place)
+		t.Log(place.Lat, " ", place.Lon)
 	}
 }
 
