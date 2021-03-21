@@ -35,12 +35,7 @@ func GetPlacesByUIDs(uids []models.UID) ([]Place, []error) {
 
 	for rows.Next() {
 		var place Place
-		if err := rows.Scan(&place.UID, &place.Name, &place.BuildingName,
-			&place.BuildingType, &place.Description,
-			&place.Address, &place.City,
-			&place.OpeningHours, &place.PostIndex,
-			&place.WebSite, &place.Phones, &place.Email,
-			&place.Facebook, &place.Instagram, &place.Twitter, &place.VK); err != nil {
+		if err := rows.StructScan(&place); err != nil {
 			resultErrors = append(resultErrors, errors.Wrap(err, "cant scan place"))
 			continue
 		}
