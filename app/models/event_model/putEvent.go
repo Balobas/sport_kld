@@ -9,9 +9,9 @@ import (
 func putEvent(event Event) error {
 	if _, err := GetEventByUid(event.UID); err == nil {
 		_, err = database.MysqlDB.NamedExec(
-			"update events set name = :name, description = :description, dates = :dates, time = :time," +
-			"visitorsNum = :visitorsNum, visitorsLimit = :visitorsLimit, placeUid = :placeUid, creatorUid = :creatorUid, isPrivate = :isPrivate, isOver = :isOver" +
-			" where uid = :uid", &event)
+			"update events set name = :name, description = :description, dates = :dates, time = :time,"+
+				"visitorsNum = :visitorsNum, visitorsLimit = :visitorsLimit, placeUid = :placeUid, creatorUid = :creatorUid, isPrivate = :isPrivate, isOver = :isOver"+
+				" where uid = :uid", &event)
 
 		return err
 	}

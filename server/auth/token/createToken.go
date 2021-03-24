@@ -8,13 +8,13 @@ import (
 
 type Claims struct {
 	jwt.StandardClaims
-	UserUid string
+	UserUid   string
 	AccessUid string
 }
 
 func CreateToken(userUid string) (*TokenDetails, error) {
 	td := &TokenDetails{}
-	td.AtExpires = time.Now().Add(time.Minute*30).Unix()
+	td.AtExpires = time.Now().Add(time.Minute * 30).Unix()
 	td.AccessUid = uuid.NewV4().String()
 
 	td.RtExpires = time.Now().Add(time.Hour * 24 * 2).Unix()

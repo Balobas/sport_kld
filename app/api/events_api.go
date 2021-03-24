@@ -42,8 +42,8 @@ func JoinEvent(ctx *gin.Context) {
 	}
 
 	decoder := json.NewDecoder(ctx.Request.Body)
-	var params struct{
-		UserUid string `json:"userUid"`
+	var params struct {
+		UserUid  string `json:"userUid"`
 		EventUid string `json:"eventUid"`
 		Password string `json:"password"`
 	}
@@ -66,8 +66,8 @@ func UpdateEvent(ctx *gin.Context) {
 
 	decoder := json.NewDecoder(ctx.Request.Body)
 	var params struct {
-		Event event_model.Event `json:"event"`
-		ExecutorUid string `json:"executorUid"`
+		Event       event_model.Event `json:"event"`
+		ExecutorUid string            `json:"executorUid"`
 	}
 
 	if err := decoder.Decode(&params); err != nil {
@@ -155,8 +155,8 @@ func GetEventsByPlace(ctx *gin.Context) {
 	uid := ctx.Request.URL.Query()["place_uid"][0]
 
 	resultParams := struct {
-		Events        []event_model.Event               `json:"events"`
-		Errors        []string                          `json:"errors"`
+		Events []event_model.Event `json:"events"`
+		Errors []string            `json:"errors"`
 	}{}
 
 	var errs []error
@@ -176,7 +176,7 @@ func ChangeEventPrivateStatus(ctx *gin.Context) {
 	}
 
 	decoder := json.NewDecoder(ctx.Request.Body)
-	var params struct{
+	var params struct {
 		EventUid string `json:"eventUid"`
 	}
 
@@ -203,9 +203,9 @@ func ChangeUserEventRole(ctx *gin.Context) {
 	}
 
 	decoder := json.NewDecoder(ctx.Request.Body)
-	var params struct{
-		EventUser event_model.EventUser `json:"eventUser"`
-		ExecutorUid string `json:"executorUid"`
+	var params struct {
+		EventUser   event_model.EventUser `json:"eventUser"`
+		ExecutorUid string                `json:"executorUid"`
 	}
 
 	if err := decoder.Decode(&params); err != nil {
@@ -226,8 +226,8 @@ func DeleteUserFromEvent(ctx *gin.Context) {
 
 	decoder := json.NewDecoder(ctx.Request.Body)
 	var params struct {
-		UserUid  string `json:"userUid"`
-		EventUid string `json:"eventUid"`
+		UserUid     string `json:"userUid"`
+		EventUid    string `json:"eventUid"`
 		ExecutorUid string `json:"executorUid"`
 	}
 
@@ -344,8 +344,8 @@ func GetEventInfoPosts(ctx *gin.Context) {
 
 	uid := ctx.Request.URL.Query()["event_uid"][0]
 	resultParams := struct {
-		EventInfoPosts        []event_model.EventInfoPost               `json:"posts"`
-		Errors        		  []string                          		`json:"errors"`
+		EventInfoPosts []event_model.EventInfoPost `json:"posts"`
+		Errors         []string                    `json:"errors"`
 	}{}
 
 	var errs []error

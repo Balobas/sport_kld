@@ -15,7 +15,7 @@ type Place struct {
 	OpeningHours string     `json:"openingHours" db:"openingHours"`
 	PostIndex    string     `json:"postIndex" db:"postIndex"`
 	Lat          float64    `json:"lat" db:"lat"`
-	Lon          float64  	`json:"lon" db:"lon"`
+	Lon          float64    `json:"lon" db:"lon"`
 	WebSite      string     `json:"webSite" db:"webSite"`
 	Phones       string     `json:"phones" db:"phones"`
 	Email        string     `json:"email" db:"email"`

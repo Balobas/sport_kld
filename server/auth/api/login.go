@@ -45,7 +45,7 @@ func Login(ctx *gin.Context) {
 	}
 
 	result := struct {
-		AccessToken string `json:"access_token"`
+		AccessToken  string `json:"access_token"`
 		RefreshToken string `json:"refresh_token"`
 	}{td.AccessToken, td.RefreshToken}
 	ctx.JSON(http.StatusOK, result)

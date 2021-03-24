@@ -19,7 +19,7 @@ func DeleteEventUser(userUid, eventUid, executorUid models.UID) error {
 	//if  _,err := database.MysqlDB.Exec("Delete from event_users where user_uid = ? and event_uid = ?", userUid, eventUid); err != nil {
 	//	return err
 	//}
-	if  _,err := database.MysqlDB.Exec("Delete from event_user_roles where userUid = ? and eventUid = ?", userUid, eventUid); err != nil {
+	if _, err := database.MysqlDB.Exec("Delete from event_user_roles where userUid = ? and eventUid = ?", userUid, eventUid); err != nil {
 		return err
 	}
 

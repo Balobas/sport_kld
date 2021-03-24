@@ -17,7 +17,6 @@ func ParseAccessToken(accessToken string) (Access, error) {
 		return Access{}, err
 	}
 
-
 	claims, ok := tk.Claims.(jwt.MapClaims)
 	if !ok {
 		return Access{}, errors.New("cant parse claims, invalid token")
@@ -59,7 +58,7 @@ func ParseRefreshToken(refreshToken string) (Refresh, error) {
 		return Refresh{}, err
 	}
 
-	claims, ok := tk.Claims.(jwt.MapClaims);
+	claims, ok := tk.Claims.(jwt.MapClaims)
 	if !ok {
 		return Refresh{}, errors.New("cant parse claims, invalid token")
 	}
@@ -85,7 +84,7 @@ func ParseRefreshToken(refreshToken string) (Refresh, error) {
 
 	return Refresh{
 		RefreshUid: refreshUid,
-		UserUid:   userUid,
-		Expires:   int64(expires),
+		UserUid:    userUid,
+		Expires:    int64(expires),
 	}, nil
 }
