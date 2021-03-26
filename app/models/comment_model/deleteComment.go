@@ -1,4 +1,4 @@
-package comments
+package comment_model
 
 import (
 	"github.com/pkg/errors"
