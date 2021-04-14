@@ -1,15 +1,16 @@
-package auth
+package baseMiddleware
 
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"sport_kld/server/auth"
 	"strings"
 )
 
-func AuthorizationMiddleware(ctx *gin.Context) {
+func AuthorizationMiddleware(ctx *gin.Context, AccessRoutesMap map[string]bool) {
 	key := ctx.Request.Method + ctx.Request.URL.Path
-	needAuth, ok := OnlyWithAuth[key]
+	needAuth, ok := AccessRoutesMap[key]
 	fmt.Println("request from", ctx.Request.Host, ctx.Request.RemoteAddr)
 
 	if !needAuth {
@@ -34,7 +35,7 @@ func AuthorizationMiddleware(ctx *gin.Context) {
 		return
 	}
 
-	authUid, userUid, err := VerifyAuth(headerParts[1])
+	authUid, userUid, err := auth.VerifyAuth(headerParts[1])
 	if err != nil {
 		_ = ctx.AbortWithError(http.StatusUnauthorized, err)
 	}

@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sport_kld/app/api"
+	"sport_kld/baseMiddleware"
 	rt "sport_kld/server/router"
 )
 
@@ -16,7 +18,9 @@ func main() {
 
 	router := gin.New()
 	router.Use(gin.Logger())
-	//router.Use(auth.AuthorizationMiddleware)
+	router.Use(func(context *gin.Context) {
+		baseMiddleware.AuthorizationMiddleware(context, api.OnlyWithAuth)
+	})
 
 	router.GET("/", func(context *gin.Context) {
 		context.JSONP(http.StatusOK, "")
