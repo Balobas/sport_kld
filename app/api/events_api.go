@@ -67,7 +67,6 @@ func UpdateEvent(ctx *gin.Context) {
 	decoder := json.NewDecoder(ctx.Request.Body)
 	var params struct {
 		Event       event_model.Event `json:"event"`
-		ExecutorUid string            `json:"executorUid"`
 	}
 
 	if err := decoder.Decode(&params); err != nil {
@@ -76,8 +75,13 @@ func UpdateEvent(ctx *gin.Context) {
 		}
 		return
 	}
+	executorUid, ok := ctx.Get("executorUid")
+	if !ok {
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
+		return
+	}
 
-	err := event_controller.UpdateEvent(params.Event, params.ExecutorUid)
+	err := event_controller.UpdateEvent(params.Event, executorUid.(string))
 	utils.WriteResult(ctx.Writer, err)
 }
 
@@ -100,7 +104,7 @@ func DeleteEvent(ctx *gin.Context) {
 
 	executorUid, ok := ctx.Get("executorUid")
 	if !ok {
-		utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
 		return
 	}
 	err := event_controller.DeleteEvent(params.EventUid, executorUid.(string))
@@ -189,7 +193,7 @@ func ChangeEventPrivateStatus(ctx *gin.Context) {
 
 	executorUid, ok := ctx.Get("executorUid")
 	if !ok {
-		utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
 		return
 	}
 
@@ -205,7 +209,6 @@ func ChangeUserEventRole(ctx *gin.Context) {
 	decoder := json.NewDecoder(ctx.Request.Body)
 	var params struct {
 		EventUser   event_model.EventUser `json:"eventUser"`
-		ExecutorUid string                `json:"executorUid"`
 	}
 
 	if err := decoder.Decode(&params); err != nil {
@@ -215,7 +218,13 @@ func ChangeUserEventRole(ctx *gin.Context) {
 		return
 	}
 
-	err := event_controller.ChangeUserEventRole(params.EventUser, params.ExecutorUid)
+	executorUid, ok := ctx.Get("executorUid")
+	if !ok {
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
+		return
+	}
+
+	err := event_controller.ChangeUserEventRole(params.EventUser, executorUid.(string))
 	utils.WriteResult(ctx.Writer, err)
 }
 
@@ -228,7 +237,6 @@ func DeleteUserFromEvent(ctx *gin.Context) {
 	var params struct {
 		UserUid     string `json:"userUid"`
 		EventUid    string `json:"eventUid"`
-		ExecutorUid string `json:"executorUid"`
 	}
 
 	if err := decoder.Decode(&params); err != nil {
@@ -238,7 +246,13 @@ func DeleteUserFromEvent(ctx *gin.Context) {
 		return
 	}
 
-	err := event_controller.DeleteEventUser(params.UserUid, params.EventUid, params.ExecutorUid)
+	executorUid, ok := ctx.Get("executorUid")
+	if !ok {
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
+		return
+	}
+
+	err := event_controller.DeleteEventUser(params.UserUid, params.EventUid, executorUid.(string))
 	utils.WriteResult(ctx.Writer, err)
 }
 
@@ -376,7 +390,7 @@ func DeleteEventInfoPost(ctx *gin.Context) {
 	}
 	executorUid, ok := ctx.Get("executorUid")
 	if !ok {
-		utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
 		return
 	}
 	err := event_controller.DeleteEvent(params.PostUid, executorUid.(string))
