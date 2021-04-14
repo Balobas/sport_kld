@@ -1,9 +1,151 @@
-//////////////////
+Места:
 
-GetPlaceInfo
-GetPlacesBySportCategory
-GetPlacesByTags
-GetPlacesByLocation
+Получение места по id
+GET sport-kld.herokuapp.com/place
+параметры - uid
+возвращает - {place}
 
-//тестовый метод для добавления мест вручную
-AddPlace
+Получение массива мест по id
+GET sport-kld.herokuapp.com/places
+параметры - массив uid
+возвращает - []places, []errors
+
+Получение мест по совпадению поисковой строки со значением полей
+GET sport-kld.herokuapp.com/places_by_fields
+параметры:
+search - строка поиска
+fields - массив, содержащий названия полей, по которым нужно произвести поиск
+возвращает - []places, []errors
+
+Получение мест, принадлежащих организации
+GET sport-kld.herokuapp.com/organization_places
+параметры: organization_uid - id организации
+возвращает - []places, []errors
+
+Получение мест по тэгу
+GET sport-kld.herokuapp.com/places_by_tag
+параметры: search - строка поиска
+возвращает - []places, []errors
+
+Организации:
+
+Получение организации по id
+GET sport-kld.herokuapp.com/organization
+параметры - uid
+возвращает - {organization}
+
+Получение массива организаций по id
+GET sport-kld.herokuapp.com/organizations
+параметры - массив uid
+возвращает - []organizations, []errors
+
+Получение организаций по совпадению поисковой строки со значением полей
+GET sport-kld.herokuapp.com/organizations_by_fields
+параметры:
+search - строка поиска
+fields - массив, содержащий названия полей, по которым нужно произвести поиск
+возвращает - []organizations, []errors
+
+Получение организаций, принадлежащих организации
+GET sport-kld.herokuapp.com/place_organization
+параметры: place_uid - id организации
+возвращает - []organizations, []errors
+
+Получение организаций по тэгу
+GET sport-kld.herokuapp.com/organizations_by_tag
+параметры: search - строка поиска
+возвращает - []organizations, []errors
+
+События:
+
+Получение события по uid
+GET sport-kld.herokuapp.com/event
+параметры - uid
+возвращает - {event}
+
+Получение событий по uid места
+GET sport-kld.herokuapp.com/events_in_place
+параметры - place_uid
+возвращает - []events, []errors
+
+Получение роли пользователя в событии
+GET sport-kld.herokuapp.com/event_user_role
+параметры - event_uid, user_uid
+возвращает - {eventUserRole}
+
+Получение поста в событии
+GET sport-kld.herokuapp.com/event_info_post
+параметры - uid
+возвращает - {пост}
+
+Получение всех постов события
+GET sport-kld.herokuapp.com/event_info_posts
+параметры - event_uid
+возвращает - []posts, []errors
+
+Создание события
+POST sport-kld.herokuapp.com/event
+параметры - поля события
+возвращает - uid
+
+Присоединение к событию
+POST sport-kld.herokuapp.com/join_event
+параметры - userUid, eventUid, password
+возвращает - error
+
+Редактирование события
+POST sport-kld.herokuapp.com/update_event
+параметры - event
+возвращает - error
+
+Изменение доступа к событию
+POST sport-kld.herokuapp.com/change_event_privacy
+параметры - event_uid
+возвращает - error
+
+Изменение роли пользователя в событии
+POST sport-kld.herokuapp.com/change_user_event_role
+параметры - eventUser
+возвращает - error
+
+Добавление/изменение поста события
+POST sport-kld.herokuapp.com/event_info_post
+параметры - поля структуры eventInfoPost
+возвращает - uid
+
+Удаление события
+DELETE sport-kld.herokuapp.com/event
+параметры - eventUid
+возвращает - error
+
+Исключение пользователя из события
+DELETE sport-kld.herokuapp.com/user_from_event
+параметры - userUid, eventUid
+возвращает - error
+
+Удаление поста
+DELETE sport-kld.herokuapp.com/event_info_post
+параметры - uid
+возвращает - error
+
+Пользователи:
+
+Получение пользователя по uid
+GET sport-kld.herokuapp.com/user
+параметры - uid
+возвращает - {поля структуры user}
+
+Получение пользователя по логину
+GET sport-kld.herokuapp.com/user_by_login
+параметры - login
+возвращает - {поля структуры user}
+
+Создание нового пользователя
+POST sport-kld.herokuapp.com/user
+параметры - поля структуры user
+возвращает - status, uid
+
+Редактирование учетной записи пользователя
+POST sport-kld.herokuapp.com/update_user
+параметры - поля структуры user
+возвращает - error
