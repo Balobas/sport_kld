@@ -1,29 +1,40 @@
 package places
 
 import (
-	"bytes"
 	"fmt"
+	"io/ioutil"
 	"net/http"
-	"net/url"
 	"sport_kld/test_app_api/config"
 )
 
 func TestGetPlaceByUID() {
-
-	buffer := new(bytes.Buffer)
-	params := url.Values{}
-	params.Set("uid", "fdc31f025f0111ebafd20c9d92446328")
-	buffer.WriteString(params.Encode())
-	req, err := http.NewRequest(http.MethodGet, config.BaseUrl, buffer)
+	resp, err := http.Get(config.BaseUrl + "/place?uid=" + "fdc346025f0111eb82530c9d92446328")
 	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	resp, err := http.Client{}.Do(req)
-	if err != nil {
-		fmt.Println(err)
+		fmt.Println("FAIL: ", err)
 		return
 	}
 
-	fmt.Println(resp)
+	b, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("FAIL: ", err)
+		return
+	}
+	fmt.Println(string(b))
+	fmt.Println("DONE : GetPlaceByUID")
+}
+
+func TestGetPlacesByUIDs() {
+	resp, err := http.Get(config.BaseUrl + "/places?uid=fdc346025f0111eb82530c9d92446328&uid=fdc3bade5f0111eba9290c9d92446328&uid=fdc5676f5f0111ebb95f0c9d92446328")
+	if err != nil {
+		fmt.Println("FAIL: ", err)
+		return
+	}
+
+	b, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("FAIL: ", err)
+		return
+	}
+	fmt.Println(string(b))
+	fmt.Println("DONE : GetPlacesByUIDs")
 }

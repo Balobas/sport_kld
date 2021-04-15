@@ -1,5 +1,5 @@
 package config
 
 var (
-	BaseUrl = "sport-kld.herokuapp.com"
+	BaseUrl = "http://sport-kld.herokuapp.com"
 )
