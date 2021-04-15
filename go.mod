@@ -1,6 +1,6 @@
 module sport_kld
 
-go 1.13.5
+go 1.12.7
 
 require (
 	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1
