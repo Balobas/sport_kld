@@ -1,7 +1,7 @@
 module sport_kld
 
-// +heroku goVersion go1.13
-go 1.13
+// +heroku goVersion go1.13.5
+go 1.13.5
 
 require (
 	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1
