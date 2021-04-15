@@ -11,7 +11,7 @@ import (
 )
 
 func CreateUser(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -40,7 +40,7 @@ func CreateUser(ctx *gin.Context) {
 }
 
 func GetUser(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -60,7 +60,7 @@ func GetUser(ctx *gin.Context) {
 }
 
 func GetUserByLogin(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -80,7 +80,7 @@ func GetUserByLogin(ctx *gin.Context) {
 }
 
 func UpdateUser(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
 		return
 	}
 

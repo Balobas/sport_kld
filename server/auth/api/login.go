@@ -7,12 +7,15 @@ import (
 	"net/http"
 	"sport_kld/app/controllers/user_controller"
 	"sport_kld/app/models/user_model"
+	"sport_kld/app/utils"
 	"sport_kld/server/auth"
 	"sport_kld/server/auth/token"
 )
 
 func Login(ctx *gin.Context) {
-
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
+		return
+	}
 	decoder := json.NewDecoder(ctx.Request.Body)
 	var user user_model.User
 	if err := decoder.Decode(&user); err != nil {

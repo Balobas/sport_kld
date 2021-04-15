@@ -11,7 +11,7 @@ import (
 )
 
 func CreateEvent(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -37,7 +37,7 @@ func CreateEvent(ctx *gin.Context) {
 }
 
 func JoinEvent(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -60,7 +60,7 @@ func JoinEvent(ctx *gin.Context) {
 }
 
 func UpdateEvent(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -86,7 +86,7 @@ func UpdateEvent(ctx *gin.Context) {
 }
 
 func DeleteEvent(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodDelete, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodDelete, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -175,7 +175,7 @@ func GetEventsByPlace(ctx *gin.Context) {
 }
 
 func ChangeEventPrivateStatus(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -202,7 +202,7 @@ func ChangeEventPrivateStatus(ctx *gin.Context) {
 }
 
 func ChangeUserEventRole(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -229,7 +229,7 @@ func ChangeUserEventRole(ctx *gin.Context) {
 }
 
 func DeleteUserFromEvent(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodDelete, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodDelete, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -287,7 +287,7 @@ func GetEventUserRole(ctx *gin.Context) {
 }
 
 func PutEventInfoPost(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -373,7 +373,7 @@ func GetEventInfoPosts(ctx *gin.Context) {
 }
 
 func DeleteEventInfoPost(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodDelete, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodDelete, ctx.Request.Method) != nil {
 		return
 	}
 
