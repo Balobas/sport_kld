@@ -18,7 +18,7 @@ func putEvent(event Event) error {
 
 	result, err := database.MysqlDB.NamedExec("INSERT INTO events(uid, name, description, dates, time, visitorsNum, visitorsLimit, placeUid, creatorUid, isPrivate, isOver) VALUES (:uid, :name, :description, :dates, :time, :visitorsNum, :visitorsLimit, :placeUid, :creatorUid, :isPrivate, :isOver)", &event)
 	if err != nil {
-		return errors.New("cant put event")
+		return errors.Wrap(err, "cant put event")
 	}
 
 	// Заменить на логер
