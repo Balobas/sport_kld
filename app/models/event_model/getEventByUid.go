@@ -1,7 +1,7 @@
 package event_model
 
 import (
-	"errors"
+	"github.com/pkg/errors"
 	"sport_kld/app/models"
 	"sport_kld/database"
 )
@@ -9,7 +9,7 @@ import (
 func GetEventByUid(uid models.UID) (Event, error) {
 	var event Event
 	if err := database.MysqlDB.Get(&event, "select * from events where uid=?", uid); err != nil {
-		return Event{}, errors.New("cant get event")
+		return Event{}, errors.Wrap(err, "cant get event")
 	}
 	return event, nil
 }

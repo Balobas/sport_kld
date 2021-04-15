@@ -1,7 +1,7 @@
 package event_model
 
 import (
-	"errors"
+	"github.com/pkg/errors"
 	uuid "github.com/satori/go.uuid"
 	"sport_kld/app/models"
 	"sport_kld/database"
@@ -28,7 +28,7 @@ func PutEventInfoPost(post EventInfoPost) (models.UID, error) {
 		*/
 		_, err := database.MysqlDB.NamedExec("INSERT into event_posts(uid, eventUid, authorUid, text, createdTime, updatedTime) VALUES (:uid, :eventUid, :authorUid, :text, :createdTime, :updatedTime)", &post)
 		if err != nil {
-			return "", err
+			return "", errors.Wrap(err, "cant create event post")
 		}
 
 		return post.UID, nil
@@ -39,7 +39,7 @@ func PutEventInfoPost(post EventInfoPost) (models.UID, error) {
 	*/
 
 	if _, err := database.MysqlDB.NamedExec("update event_posts set text = :text where uid = :uid", &post); err != nil {
-		return "", err
+		return "", errors.Wrap(err, "cant update event post")
 	}
 
 	return post.UID, nil
