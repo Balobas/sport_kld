@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	_ "github.com/mattn/go-isatty"
 	"net/http"
 	rt "sport_kld/server/router"
 )
