@@ -17,16 +17,34 @@ func Login(ctx *gin.Context) {
 		return
 	}
 	decoder := json.NewDecoder(ctx.Request.Body)
-	var user user_model.User
-	if err := decoder.Decode(&user); err != nil {
+	params := struct {
+		Login    string    `json:"login"`
+		Password string    `json:"password"`
+	}{}
+	if err := decoder.Decode(&params); err != nil {
 		if _, err := ctx.Writer.Write([]byte(err.Error())); err != nil {
 			fmt.Println("cant write bytes")
 		}
 		return
 	}
 
+	user := user_model.User{}
+	user.Login = params.Login
+	user.Password = params.Password
+
 	// check user in db
 	if err := user_controller.VerifyUser(user); err != nil {
+		if _, err := ctx.Writer.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	user, err := user_controller.GetUserByLogin(params.Login)
+	if err != nil {
+		if _, err := ctx.Writer.Write([]byte(err.Error())); err != nil {
+			fmt.Println("cant write bytes")
+		}
 		return
 	}
 
