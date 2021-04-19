@@ -13,11 +13,11 @@ import (
 func TestCreateUser() {
 	user := user_model.User{
 		UID:      "",
-		Name:     "aaa",
-		Login:    "sdasd",
+		Name:     "balobasr",
+		Login:    "biba",
 		Email:    "sadsd",
 		Age:      20,
-		Password: "gfdgh",
+		Password: "boba",
 	}
 
 	b, err := json.Marshal(user)
@@ -41,4 +41,33 @@ func TestCreateUser() {
 	fmt.Println(string(b))
 
 	fmt.Println("DONE: CreateUser test")
+}
+
+func TestLogin() {
+	user := user_model.User{
+		Login:    "biba",
+		Password: "boba",
+	}
+
+	b, err := json.Marshal(user)
+	if err != nil {
+		fmt.Println("FAIL: ", err)
+		return
+	}
+
+	r := bytes.NewReader(b)
+	resp, err := http.Post(config.BaseUrl + "/login", "application/json", r)
+	if err != nil {
+		fmt.Println("FAIL: ", err)
+		return
+	}
+
+	b, err = ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("FAIL: ", err)
+		return
+	}
+	fmt.Println(string(b))
+
+	fmt.Println("DONE: Login test")
 }

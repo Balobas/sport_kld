@@ -1,15 +1,23 @@
 package main
 
 import (
-	"sport_kld/test_app_api/events"
-	"sport_kld/test_app_api/places"
+	"crypto/md5"
+	"fmt"
 	"sport_kld/test_app_api/users"
 )
 
 func main() {
-	places.TestGetPlaceByUID()
-	places.TestGetPlacesByUIDs()
+	//places.TestGetPlaceByUID()
+	//places.TestGetPlacesByUIDs()
+	//
+	//events.TestCreateEvent()
+	//users.TestCreateUser()
+	users.TestLogin()
 
-	events.TestCreateEvent()
-	users.TestCreateUser()
+	h := md5.New()
+	h.Write([]byte("boba"))
+	h.Write([]byte("hashsalt"))
+	pass := fmt.Sprintf("%x", h.Sum(nil))
+
+	fmt.Println(pass)
 }

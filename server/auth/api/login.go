@@ -30,6 +30,7 @@ func Login(ctx *gin.Context) {
 		return
 	}
 
+
 	// Пока допускается только один активный клиент для пользователя
 	if err := auth.AuthExist(user.UID.String()); err == nil {
 		_, _ = ctx.Writer.Write([]byte("user already login"))

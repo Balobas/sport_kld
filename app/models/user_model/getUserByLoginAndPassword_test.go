@@ -3,7 +3,7 @@ package user_model
 import "testing"
 
 func Test_getUserByLoginAndPassword(t *testing.T) {
-	user, err := getUserByLoginAndPassword("vaspetгaoggo", "lolkek")
+	user, err := getUserByLoginAndPassword("biba", "boba")
 	if err != nil {
 		t.Log("failed", err)
 		t.FailNow()
