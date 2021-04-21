@@ -1,0 +1,16 @@
+Авторизация:
+
+Логин
+POST sport-kld.herokuapp.com/login
+параметры - поля структуры user
+возвращает - status, {access_token, refresh_token}
+
+Выход из учетной записи
+POST sport-kld.herokuapp.com/logout
+параметры - authUid
+возвращает - ok
+
+Обновление токена доступа
+POST sport-kld.herokuapp.com/refresh
+параметры - refresh_token
+возвращает - status, {access_token, refresh_token}

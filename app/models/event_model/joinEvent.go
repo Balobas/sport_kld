@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func JoinEvent(userUid , eventUid models.UID, password string) error {
+func JoinEvent(userUid, eventUid models.UID, password string) error {
 	if len(userUid) == 0 {
 		return errors.New("user uid is empty")
 	}
@@ -37,7 +37,7 @@ func JoinEvent(userUid , eventUid models.UID, password string) error {
 		}
 	}
 
-	if event.VisitorsNum + 1 > event.VisitorsLimit {
+	if event.VisitorsNum+1 > event.VisitorsLimit {
 		return errors.New("users limit is over")
 	}
 

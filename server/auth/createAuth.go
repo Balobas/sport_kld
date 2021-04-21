@@ -35,10 +35,10 @@ func CreateAuth(userUid string, td *token.TokenDetails) error {
 	if _, err := database.MysqlDB.NamedExec("insert into auth(uid, userUid, accessUid, refreshUid) values (:uid, :userUid, :accessUid, :refreshUid)", &auth); err != nil {
 		return errors.Wrap(err, "cant create auth")
 	}
-	if _, err := database.MysqlDB.NamedExec("insert into access(accessUid, userUid, expires) values (:uid, :userUid, :expires)", &access); err != nil {
+	if _, err := database.MysqlDB.NamedExec("insert into access(accessUid, userUid, expires) values (:accessUid, :userUid, :expires)", &access); err != nil {
 		return errors.Wrap(err, "cant create auth")
 	}
-	if _, err := database.MysqlDB.NamedExec("insert into refresh(refreshUid, userUid, expires) values (:uid, :userUid, :expires)", &refresh); err != nil {
+	if _, err := database.MysqlDB.NamedExec("insert into refresh(refreshUid, userUid, expires) values (:refreshUid, :userUid, :expires)", &refresh); err != nil {
 		return errors.Wrap(err, "cant create auth")
 	}
 	return nil

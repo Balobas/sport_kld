@@ -42,7 +42,6 @@ func InitRoutes(router *gin.Engine) {
 	router.POST("/logout", serverAuthApi.Logout)
 	router.POST("/refresh", serverAuthApi.Refresh)
 
-
 	router.DELETE("/event", api.DeleteEvent)
 	router.DELETE("/user_from_event", api.DeleteUserFromEvent)
 	router.DELETE("/event_info_post", api.DeleteEventInfoPost)

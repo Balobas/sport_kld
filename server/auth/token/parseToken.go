@@ -17,7 +17,7 @@ func ParseAccessToken(accessToken string) (Access, error) {
 		return Access{}, err
 	}
 
-	claims, ok := tk.Claims.(*jwt.MapClaims);
+	claims, ok := tk.Claims.(jwt.MapClaims)
 	if !ok {
 		return Access{}, errors.New("cant parse claims, invalid token")
 	}
@@ -25,17 +25,17 @@ func ParseAccessToken(accessToken string) (Access, error) {
 		return Access{}, errors.New("invalid token")
 	}
 
-	accessUid, ok := (*claims)["access_uid"].(string)
+	accessUid, ok := claims["access_uid"].(string)
 	if !ok {
 		return Access{}, errors.New("invalid token")
 	}
 
-	userUid, ok := (*claims)["user_uid"].(string)
+	userUid, ok := claims["user_uid"].(string)
 	if !ok {
 		return Access{}, errors.New("invalid token")
 	}
 
-	expires, ok := (*claims)["expires"].(int64)
+	expires, ok := claims["exp"].(float64)
 	if !ok {
 		return Access{}, errors.New("invalid token")
 	}
@@ -43,7 +43,7 @@ func ParseAccessToken(accessToken string) (Access, error) {
 	return Access{
 		AccessUid: accessUid,
 		UserUid:   userUid,
-		Expires:   expires,
+		Expires:   int64(expires),
 	}, nil
 }
 
@@ -58,7 +58,7 @@ func ParseRefreshToken(refreshToken string) (Refresh, error) {
 		return Refresh{}, err
 	}
 
-	claims, ok := tk.Claims.(*jwt.MapClaims);
+	claims, ok := tk.Claims.(jwt.MapClaims)
 	if !ok {
 		return Refresh{}, errors.New("cant parse claims, invalid token")
 	}
@@ -66,24 +66,25 @@ func ParseRefreshToken(refreshToken string) (Refresh, error) {
 		return Refresh{}, errors.New("invalid token")
 	}
 
-	refreshUid, ok := (*claims)["refresh_uid"].(string)
+	refreshUid, ok := claims["refresh_uid"].(string)
 	if !ok {
 		return Refresh{}, errors.New("invalid token")
 	}
 
-	userUid, ok := (*claims)["user_uid"].(string)
+	userUid, ok := claims["user_uid"].(string)
 	if !ok {
 		return Refresh{}, errors.New("invalid token")
 	}
 
-	expires, ok := (*claims)["expires"].(int64)
+	expires, ok := claims["exp"].(float64)
 	if !ok {
+
 		return Refresh{}, errors.New("invalid token")
 	}
 
 	return Refresh{
 		RefreshUid: refreshUid,
-		UserUid:   userUid,
-		Expires:   expires,
+		UserUid:    userUid,
+		Expires:    int64(expires),
 	}, nil
 }

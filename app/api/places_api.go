@@ -14,7 +14,7 @@ import (
 )
 
 func GetPlaceByUID(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -37,7 +37,7 @@ func GetPlaceByUID(ctx *gin.Context) {
 }
 
 func GetPlacesByUIDs(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 

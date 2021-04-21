@@ -5,11 +5,15 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"sport_kld/app/utils"
 	"sport_kld/server/auth"
 	"sport_kld/server/auth/token"
 )
 
 func Refresh(ctx *gin.Context) {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
+		return
+	}
 	params := struct {
 		RefreshToken string `json:"refresh_token"`
 	}{}
@@ -45,7 +49,7 @@ func Refresh(ctx *gin.Context) {
 	}
 
 	result := struct {
-		AccessToken string `json:"access_token"`
+		AccessToken  string `json:"access_token"`
 		RefreshToken string `json:"refresh_token"`
 	}{tk.AccessToken, tk.RefreshToken}
 	ctx.JSON(http.StatusOK, result)

@@ -17,8 +17,8 @@ func TestUpdateEvent(t *testing.T) {
 		EventPassword: "",
 		IsOver:        false,
 	}, "ttt"); err != nil {
-			t.Log(err)
-			t.FailNow()
+		t.Log(err)
+		t.FailNow()
 	}
 
 	t.Log("passed")

@@ -43,7 +43,7 @@ func AuthExist(userUid string) error {
 	return err
 }
 
-func GetAuthUidByAccessUid(uid string) (string, error){
+func GetAuthUidByAccessUid(uid string) (string, error) {
 	var authUid string
 	if err := database.MysqlDB.Get(&authUid, "select uid from auth where accessUid = ?", uid); err != nil {
 		return "", errors.Wrap(err, "cant get authUid")
@@ -51,7 +51,7 @@ func GetAuthUidByAccessUid(uid string) (string, error){
 	return authUid, nil
 }
 
-func GetAuthUidByRefreshUid(uid string) (string, error){
+func GetAuthUidByRefreshUid(uid string) (string, error) {
 	var authUid string
 	if err := database.MysqlDB.Get(&authUid, "select uid from auth where refreshUid = ?", uid); err != nil {
 		return "", errors.Wrap(err, "cant get authUid")

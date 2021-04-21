@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func HandleHTTPMethod(w http.ResponseWriter, requiredMethod, inputMethod string) error {
+func CheckHTTPMethod(w http.ResponseWriter, requiredMethod, inputMethod string) error {
 	if inputMethod != requiredMethod {
 		res := []byte("wrong http method. access denied")
 		if _, err := w.Write(res); err != nil {

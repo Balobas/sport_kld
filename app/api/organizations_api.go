@@ -39,7 +39,7 @@ func GetOrganizationByUID(ctx *gin.Context) {
 }
 
 func GetOrganizationsByUIDs(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -66,7 +66,7 @@ func GetOrganizationsByUIDs(ctx *gin.Context) {
 }
 
 func GetOrganizationsByFields(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -94,7 +94,7 @@ func GetOrganizationsByFields(ctx *gin.Context) {
 }
 
 func GetPlaceOrganization(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 
@@ -122,7 +122,7 @@ func GetPlaceOrganization(ctx *gin.Context) {
 }
 
 func GetOrganizationsByTag(ctx *gin.Context) {
-	if utils.HandleHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
+	if utils.CheckHTTPMethod(ctx.Writer, http.MethodGet, ctx.Request.Method) != nil {
 		return
 	}
 

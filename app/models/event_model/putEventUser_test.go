@@ -9,8 +9,8 @@ func TestPutEventUserRole(t *testing.T) {
 		Role:            "asd",
 		RoleDescription: "asda",
 	}); err != nil {
-			t.Log(err)
-			t.FailNow()
+		t.Log(err)
+		t.FailNow()
 	}
 
 	t.Log("passed")
