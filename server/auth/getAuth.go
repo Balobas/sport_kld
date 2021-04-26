@@ -38,7 +38,7 @@ func getAuthByUserUid(uid string) (Auth, error) {
 	return auth, nil
 }
 
-func AuthExist(userUid string) error {
+func ExistAuth(userUid string) error {
 	_, err := getAuthByUserUid(userUid)
 	return err
 }

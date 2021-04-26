@@ -75,7 +75,7 @@ func Test_getAuthByUserUid(t *testing.T) {
 }
 
 func TestAuthExist(t *testing.T) {
-	if err := AuthExist("fa27e2b4-8189-11eb-956d-0c9d9244"); err != nil {
+	if err := ExistAuth("fa27e2b4-8189-11eb-956d-0c9d9244"); err != nil {
 		t.Log(err.Error())
 		t.FailNow()
 	}

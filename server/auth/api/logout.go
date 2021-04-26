@@ -15,6 +15,7 @@ func Logout(ctx *gin.Context) {
 	if !ok {
 		_, _ = ctx.Writer.Write([]byte("cant get token"))
 	}
+
 	err := auth.DeleteAuth(authUid.(string))
 	if err != nil {
 		_, _ = ctx.Writer.Write([]byte("cant delete auth" + err.Error()))

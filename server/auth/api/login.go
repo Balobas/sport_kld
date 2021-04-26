@@ -50,7 +50,7 @@ func Login(ctx *gin.Context) {
 
 
 	// Пока допускается только один активный клиент для пользователя
-	if err := auth.AuthExist(user.UID.String()); err == nil {
+	if err := auth.ExistAuth(user.UID.String()); err == nil {
 		_, _ = ctx.Writer.Write([]byte("user already login"))
 		return
 	}
