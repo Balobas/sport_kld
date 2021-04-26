@@ -11,18 +11,12 @@ func Logout(ctx *gin.Context) {
 	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
 		return
 	}
-	authUidI, ok := ctx.Get("authUid")
-	authUid := authUidI.(string)
+	authUid, ok := ctx.Get("authUid")
 	if !ok {
 		_, _ = ctx.Writer.Write([]byte("cant get token"))
 	}
 
-	if err := auth.CheckAuth(authUid); err != nil {
-		_, _ = ctx.Writer.Write([]byte("cant find auth" + err.Error()))
-		return
-	}
-
-	if err := auth.DeleteAuth(authUid); err != nil {
+	if err := auth.DeleteAuth(authUid.(string)); err != nil {
 		_, _ = ctx.Writer.Write([]byte("cant delete auth" + err.Error()))
 		return
 	}
