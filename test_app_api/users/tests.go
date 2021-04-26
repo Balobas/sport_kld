@@ -73,7 +73,7 @@ func TestLogin() {
 }
 
 func TestLogout() {
-	accessToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdWlkIjoiOTg2Mjk4YmEtMzE4Yi00MjdmLTgyNjEtNmMyMTIzM2YwZjYyIiwiZXhwIjoxNjE5MzQ5ODExLCJ1c2VyX3VpZCI6ImE1MTY4OGUwLWEwZmItMTFlYi05ODJjLWVhNGMyZGE3NTk3OCJ9.T-t8QhiPOk523VeCfuRsLkPu7DFcWxIl1uLW8ykG1Mo"
+	accessToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdWlkIjoiOGY5NzM1MjAtZjYwZC00MmU3LTk2MDgtYzMzYTU2ZjcxZjJkIiwiZXhwIjoxNjE5NDMxMzg1LCJ1c2VyX3VpZCI6ImE1MTY4OGUwLWEwZmItMTFlYi05ODJjLWVhNGMyZGE3NTk3OCJ9.oNuJD6j6uUJlMTZMsC5NNsfAqxP9sh7gpd6bcnQl3mc"
 	client := &http.Client{}
 	URL := config.BaseUrl + "/logout"
 	req, err := http.NewRequest("POST", URL, nil)
@@ -88,12 +88,12 @@ func TestLogout() {
 		return
 	}
 
-	b, err := ioutil.ReadAll(resp.Body)
+	_, err = ioutil.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println("FAIL: ", err)
 		return
 	}
-	fmt.Println(string(b))
+	fmt.Println(string(resp.Status))
 
 	fmt.Println("DONE: Logout test")
 }

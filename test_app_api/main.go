@@ -1,9 +1,6 @@
 package main
 
-import (
-
-	"sport_kld/test_app_api/users"
-)
+import "sport_kld/test_app_api/users"
 
 func main() {
 	//places.TestGetPlaceByUID()
@@ -11,6 +8,7 @@ func main() {
 	//
 	//events.TestCreateEvent()
 	//users.TestCreateUser()
+	//users.TestLogin()
 	users.TestLogout()
 
 	//h := md5.New()
