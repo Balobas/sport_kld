@@ -58,3 +58,11 @@ func GetAuthUidByRefreshUid(uid string) (string, error) {
 	}
 	return authUid, nil
 }
+
+func CheckAuth(authUid string) error {
+	var a Auth
+	if err := database.MysqlDB.Get(&a, "select * from auth where uid = ?", authUid); err != nil {
+		return errors.Wrap(err, "cant get authUid")
+	}
+	return nil
+}
