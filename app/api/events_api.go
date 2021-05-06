@@ -6,12 +6,18 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"sport_kld/app/controllers/event_controller"
+	"sport_kld/app/models"
 	"sport_kld/app/models/event_model"
 	"sport_kld/app/utils"
 )
 
 func CreateEvent(ctx *gin.Context) {
 	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
+		return
+	}
+	executorUid, ok := ctx.Get("executorUid")
+	if !ok {
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
 		return
 	}
 
@@ -24,6 +30,7 @@ func CreateEvent(ctx *gin.Context) {
 		}
 		return
 	}
+	event.CreatorUID = models.UID(executorUid.(string))
 
 	uid, err := event_controller.CreateEvent(event)
 	if err != nil {
@@ -40,6 +47,11 @@ func JoinEvent(ctx *gin.Context) {
 	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
 		return
 	}
+	executorUid, ok := ctx.Get("executorUid")
+	if !ok {
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
+		return
+	}
 
 	decoder := json.NewDecoder(ctx.Request.Body)
 	var params struct {
@@ -47,6 +59,8 @@ func JoinEvent(ctx *gin.Context) {
 		EventUid string `json:"eventUid"`
 		Password string `json:"password"`
 	}
+
+	params.UserUid = executorUid.(string)
 
 	if err := decoder.Decode(&params); err != nil {
 		if _, err := ctx.Writer.Write([]byte(err.Error())); err != nil {
@@ -299,6 +313,12 @@ func PutEventInfoPost(ctx *gin.Context) {
 		}
 		return
 	}
+	executorUid, ok := ctx.Get("executorUid")
+	if !ok {
+		_ = utils.WriteToResponseWriter(ctx.Writer, []byte("cant get executor uid"))
+		return
+	}
+	post.AuthorUID = models.UID(executorUid.(string))
 
 	uid, err := event_controller.PutEventInfoPost(post)
 	if err != nil {
