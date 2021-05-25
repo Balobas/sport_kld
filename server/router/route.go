@@ -21,6 +21,7 @@ func InitRoutes(router *gin.Engine) {
 
 	router.GET("/event", api.GetEventByUid)
 	router.GET("/events_in_place", api.GetEventsByPlace)
+	router.GET("/all_events", api.GetAllEvents)
 	router.GET("/event_user_role", api.GetEventUserRole)
 	router.GET("/event_info_post", api.GetEventInfoPost)
 	router.GET("/event_info_posts", api.GetEventInfoPosts)

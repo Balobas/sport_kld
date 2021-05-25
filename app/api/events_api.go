@@ -188,6 +188,25 @@ func GetEventsByPlace(ctx *gin.Context) {
 	utils.WriteResult(ctx.Writer, resultParams)
 }
 
+func GetAllEvents(ctx *gin.Context) {
+	if ctx.Request.Method != http.MethodGet {
+		res := []byte("wrong http method. access denied")
+		if _, err := ctx.Writer.Write(res); err != nil {
+			fmt.Println("cant write bytes")
+		}
+		return
+	}
+
+	resultParams := struct {
+		Events []event_model.Event `json:"events"`
+		Error    error             `json:"errors"`
+	}{}
+
+	resultParams.Events, resultParams.Error = event_controller.GetAllEvents()
+
+	utils.WriteResult(ctx.Writer, resultParams)
+}
+
 func ChangeEventPrivateStatus(ctx *gin.Context) {
 	if utils.CheckHTTPMethod(ctx.Writer, http.MethodPost, ctx.Request.Method) != nil {
 		return
