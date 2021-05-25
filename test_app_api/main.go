@@ -1,15 +1,15 @@
 package main
 
-import "sport_kld/test_app_api/users"
+import "sport_kld/test_app_api/events"
 
 func main() {
 	//places.TestGetPlaceByUID()
 	//places.TestGetPlacesByUIDs()
 	//
-	//events.TestCreateEvent()
+	events.TestCreateEvent()
 	//users.TestCreateUser()
 	//users.TestLogin()
-	users.TestLogout()
+	//users.TestLogout()
 
 	//h := md5.New()
 	//h.Write([]byte("boba"))

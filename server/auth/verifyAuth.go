@@ -22,11 +22,11 @@ func VerifyAuth(accessToken string) (authUid, userUid string, err error) {
 	}
 
 	if storedAccess.Expires != access.Expires {
-		fmt.Println("secret key was spizhen")
+		fmt.Println("secret key was gifted")
 		return "", "", errors.New("fake token")
 	}
 	if storedAccess.UserUid != access.UserUid {
-		fmt.Println("secret key was spizhen")
+		fmt.Println("secret key was gifted")
 		return "", "", errors.New("fake token")
 	}
 

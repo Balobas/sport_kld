@@ -20,7 +20,7 @@ func TestCreateEvent() {
 		VisitorsNum:   0,
 		VisitorsLimit: 25,
 		PlaceUID:      "8912829312312312",
-		CreatorUID:    "ttt",
+		CreatorUID:    "",
 		IsPrivate:     false,
 		EventPassword: "",
 		IsOver:        false,
@@ -32,8 +32,17 @@ func TestCreateEvent() {
 		return
 	}
 
-	r := bytes.NewReader(b)
-	resp, err := http.Post(config.BaseUrl + "/event", "application/json", r)
+	t := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdWlkIjoiNjM2YmZhOWMtOWUyYy00Y2I5LWJlNzUtY2FjZTBiNmU2N2IwIiwiZXhwIjoxNjIwMzM1MTU4LCJ1c2VyX3VpZCI6IjhlY2Q4OWU0LWFlYWEtMTFlYi04OGY3LTdlYjI3MjBhZGM3MSJ9.8f8UgD8pGLwxbc6qX7jW2ommEtxi8n84cqmdz4VRFgM"
+
+	client := &http.Client{}
+	URL := config.BaseUrl + "/event"
+	req, err := http.NewRequest("POST", URL, bytes.NewReader(b))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %v", t))
+	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Println("FAIL: ", err)
 		return
@@ -45,6 +54,4 @@ func TestCreateEvent() {
 		return
 	}
 	fmt.Println(string(b))
-
-	fmt.Println("DONE: CreateEvent test")
 }

@@ -14,7 +14,7 @@ func TestCreateUser() {
 	user := user_model.User{
 		UID:      "",
 		Name:     "balobasr",
-		Login:    "biba",
+		Login:    "bibabob",
 		Email:    "sadsd",
 		Age:      20,
 		Password: "boba",
@@ -45,7 +45,7 @@ func TestCreateUser() {
 
 func TestLogin() {
 	user := user_model.User{
-		Login:    "biba",
+		Login:    "bibabob",
 		Password: "boba",
 	}
 
